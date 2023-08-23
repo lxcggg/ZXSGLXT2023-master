@@ -1,58 +1,97 @@
+
 <!DOCTYPE html>
 <html lang="en" xmlns:th="http://www.thymeleaf.org">
 <head>
-    <meta charset="UTF-8">
-    <title>user23</title>
+    <meta charset="utf-8" />
+    <meta http-equiv="X-UA-Compatible" content="IE=edge" />
+    <meta name="viewport" content="width=device-width, initial-scale=1, shrink-to-fit=no" />
+    <meta name="description" content="" />
+    <meta name="author" content="" />
+    <title>反馈页面</title>
+    <link href="css/styles.css" th:href="@{/css/styles.css}" rel="stylesheet"/>
+    <link href="css/dataTables.bootstrap4.min.css" th:href="@{/css/dataTables.bootstrap4.min.css}" rel="stylesheet" crossorigin="anonymous">
+    <script src="js/all.min.js" th:src="@{/js/all.min.js}" crossorigin="anonymous"></script>
 </head>
-<body>
-<!--主页-->
-<!--顶部top-->
-<nav class="sb-topnav navbar navbar-expand navbar-dark bg-dark" th:fragment="topbar">
-    <a class="navbar-brand" th:href="@{/user23}">主页</a>
-    <button class="btn btn-link btn-sm order-1 order-lg-0" id="sidebarToggle" href="#"><i class="fas fa-bars"></i></button>
-    <span class="navbar-brand  ml-auto" ><i class="fas fa-user"></i>  当前用户： [[${session.username}]] </span>
-</nav>
-<!--侧边bar-->
-<nav class="sb-sidenav accordion sb-sidenav-dark" id="sidenavAccordion" th:fragment="sidebar">
-    <div class="sb-sidenav-menu">
-        <div class="nav">
-<!--            <div class="sb-sidenav-menu-heading">数据分析</div>-->
-<!--            <a class="nav-link" th:href="@{/user23}">-->
-<!--                <nav class="sb-sidenav-menu-nested nav">-->
-<!--                    <div class="sb-nav-link-icon"><i class="fas fa-industry"></i>自习室数据总览</div>-->
-<!--                </nav>-->
-<!--            </a>-->
-            <div class="sb-sidenav-menu-heading"><i class="fas fa-columns"></i>用户管理</div>
-            <a class="nav-link" th:href="@{/user23}">   </a>
-            <nav class="sb-sidenav-menu-nested nav">
-                <div class="nav-link" >用户信息管理</div>
-                <a class="nav-link" th:href="@{/toFeedback}">投诉反馈信息</a>
-
-            </nav>
-            <div class="sb-sidenav-menu-heading"><i class="fas fa-columns"></i>座位管理</div>
-            <nav class="sb-sidenav-menu-nested nav accordion" id="sidenavAccordionPages">
-                <a class="nav-link" th:href="@{/seat}">实时座位管理</a>
-                <a class="nav-link" th:href="@{/seatUseCount}">座位使用统计</a>
-
-            </nav>
-            <div class="sb-sidenav-menu-heading">密码管理</div>
-            <nav class="sb-sidenav-menu-nested nav accordion" >
-                <a class="nav-link" th:href="@{/forgotPwd2}">重置密码</a>
-            </nav>
-            <div class="sb-sidenav-menu-heading">安全退出</div>
-            <nav class="sb-sidenav-menu-nested nav accordion" >
-                <a class="nav-link" th:href="@{/logout}">退出系统</a>
-            </nav>
-
-        </div>
+<body class="sb-nav-fixed">
+<!--公共部分-->
+<div th:replace="commons/bar2::topbar"></div>
+<div id="layoutSidenav">
+    <div id="layoutSidenav_nav">
+        <div th:replace="commons/bar2::sidebar"></div>
     </div>
-    <div class="sb-sidenav-footer">
-        <div class="small">欢迎: [[${session.username}]]</div>
-    </div>
-</nav>
 
+
+</div>
+<script src="js/jquery-3.4.1.min.js" th:src="@{/js/jquery-3.4.1.min.js}" crossorigin="anonymous"></script>
+<script src="js/bootstrap.bundle.min.js" th:src="@{/js/bootstrap.bundle.min.js}" crossorigin="anonymous"></script>
+<script src="js/scripts.js" th:src="@{/js/scripts.js}"></script>
+<script src="js/jquery.dataTables.min.js" th:src="@{/js/jquery.dataTables.min.js}" crossorigin="anonymous"></script>
+<script src="js/dataTables.bootstrap4.min.js" th:src="@{/js/dataTables.bootstrap4.min.js}" crossorigin="anonymous"></script>
+<script src="js/datatables-demo.js" th:src="@{/js/datatables-demo.js}"></script>
 <script type="text/javascript">
-
+    //隐藏表格的列
+    $('table tr').find('td:eq(2)').hide();
+    $('table tr').find('th:eq(2)').hide();
+    //日期格式
+    Date.prototype.format = function(fmt) {
+        var o = {
+            "M+" : this.getMonth()+1,                 //月份
+            "d+" : this.getDate(),                    //日
+            "h+" : this.getHours(),                   //小时
+            "m+" : this.getMinutes(),                 //分
+            "s+" : this.getSeconds(),                 //秒
+            "q+" : Math.floor((this.getMonth()+3)/3), //季度
+            "S"  : this.getMilliseconds()             //毫秒
+        };
+        if(/(y+)/.test(fmt)) {
+            fmt=fmt.replace(RegExp.$1, (this.getFullYear()+"").substr(4 - RegExp.$1.length));
+        }
+        for(var k in o) {
+            if(new RegExp("("+ k +")").test(fmt)){
+                fmt = fmt.replace(RegExp.$1, (RegExp.$1.length==1) ? (o[k]) : (("00"+ o[k]).substr((""+ o[k]).length)));
+            }
+        }
+        return fmt;
+    }
+    //点击详细信息按钮，弹出模态框
+    $(document).on("click","#cpidAnduserid",function(){
+        var userid = $(this).attr("user_id");
+        var cpid = $(this).attr("cp_id");
+        getUser(userid);
+        getCp(cpid);
+        //弹出模块矿，静态、esc关闭
+        $('#cpModal').modal({
+            keyboard:true,
+            backdrop:"static"
+        })
+    });
+    function getUser(userid){
+        $.ajax({
+            url:"/queryUserByID/"+userid,
+            type:"GET",
+            success:function(result){
+                var user = result.extend.users;
+                // alert(user);
+                $('#userName').val(user.username);
+                $('#userAge').val(user.userage);
+                $('#userTel').val(user.usertel);
+                $("#userGender").val(user.usergender=='M'?'男':'女');
+            }
+        });
+    }
+    function getCp(cpid){
+        $.ajax({
+            url:"/queryCpByID/"+cpid,
+            type:"GET",
+            success:function(result){
+                var cp = result.extend.cp;
+                var cpdate = new Date(cp.cpdate).format("yyyy-MM-dd hh:mm:ss");
+                // alert(user);
+                $('#cpdate').val(cpdate);
+                $('#cpText').text(cp.cptext);
+            }
+        });
+    }
 </script>
 </body>
 </html>
