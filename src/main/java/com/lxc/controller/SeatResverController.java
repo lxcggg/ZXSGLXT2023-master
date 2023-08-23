@@ -10,7 +10,11 @@ import org.springframework.stereotype.Controller;
 import org.springframework.web.bind.annotation.*;
 
 import java.util.List;
-
+/*
+*
+* 座位预约管理
+*
+* */
 @Controller
 public class SeatResverController {
 

@@ -2,6 +2,8 @@ package com.lxc.controller;
 
 import com.github.pagehelper.PageHelper;
 import com.github.pagehelper.PageInfo;
+import com.lxc.entity.Manager;
+import com.lxc.entity.Statistic;
 import com.lxc.entity.User;
 import com.lxc.service.impl.UserServiceImpl;
 import com.lxc.utils.Msg;
@@ -9,6 +11,7 @@ import org.springframework.beans.factory.annotation.Autowired;
 import org.springframework.stereotype.Controller;
 import org.springframework.web.bind.annotation.*;
 
+import javax.servlet.http.HttpSession;
 import java.util.ArrayList;
 import java.util.List;
 import java.util.Map;
@@ -214,6 +217,90 @@ public class UserController {
             return Msg.success().add("va_msg","用户名存在!");
         }else {
             return Msg.fail().add("va_msg","用户名不存在，重新输入！");
+        }
+    }
+
+    //登陆和忘记密码==》检查用户名是否存在
+    @GetMapping("/checkLoginUserName")
+    @ResponseBody
+    public Msg checkLoginUserName(@RequestParam("username") String username2){
+        String username = username2.trim();
+        String regex = "(^[a-zA-Z0-9_-]{6,16}$)|(^[\\u2E80-\\u9FFF]+$)";
+
+        boolean c = username.matches(regex);
+        if(!c) {
+            return Msg.fail().add("va_msg", "用户名是2-5位中文，或者6-16位英文和数字的组合");
+        }
+        boolean b = userService.checkUserName(username);
+        if (b==true){
+            return Msg.fail().add("va_msg","用户名不存在！");
+        }else {
+            return Msg.success().add("va_msg","");
+        }
+    }
+    //登陆检查密码
+    @GetMapping("/checkLoginUserPwd")
+    @ResponseBody
+    public Msg checkLoginUserPwd(@RequestParam("userpwd") String userpwd1){
+        String userpwd = userpwd1.trim();
+        String regex = "(^[a-zA-Z0-9_-]{6,16}$)";
+        boolean matches = userpwd.matches(regex);
+        if(matches == true){
+            return Msg.success().add("va_msg"," ");
+        }else{
+            return Msg.fail().add("va_msg","密码格式不正确：必须超过6位，小于16位！");
+        }
+    }
+    //点击进入按钮校验用户名和密码是否正确
+    @PostMapping("/loginD2")
+    public String loginDashboard(@RequestParam("username") String username2,
+                                 @RequestParam("userpwd") String userpwd1,
+                                 Map<String,Object> map, HttpSession session){
+        /*
+         * ==true没有该用户
+         * ==false 用户存在
+         * */
+        String username = username2.trim();
+        String userpwd = userpwd1.trim();
+        if(username != "" && userpwd1!=""){
+            boolean name = userService.checkUserName(username);
+            boolean pwd = userService.checkUserPwd(userpwd);
+            if(name == false && pwd ==false ){
+//                System.out.println("用户名或密码正确！");
+                session.setAttribute("username",username);
+                return "redirect:/user23";
+            }else{
+//                System.out.println("密码错误！");
+                map.put("msg","账号密码错误，请重新输入账号和密码！");
+                return "Login";
+            }
+        }else {
+            map.put("msg","请输入账号or密码！");
+            return "Login";
+        }
+    }
+    @GetMapping("/user23")
+    public String getUser(Map<String,Object> map){
+        List<User> users = userService.getAll();
+        map.put("users",users);
+        return "user23";
+    }
+    //进入注册页面
+    @RequestMapping("/register02")
+    public String toRegisterPage(){
+        return "Register02";
+    }
+
+    @PostMapping("/registerUser")
+    public String registerUser(User user, Map<String,Object> map){
+        user.setUserid(null);
+        boolean flag = userService.createUser(user);
+        if(flag == true){
+            map.put("msg","插入成功！");
+            return "redirect:main.html";
+        }else{
+            map.put("msg","插入失败！");
+            return "Register02";
         }
     }
 }

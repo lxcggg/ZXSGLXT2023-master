@@ -11,6 +11,14 @@ import javax.servlet.http.HttpSession;
 import java.util.Enumeration;
 import java.util.Map;
 
+/*
+*
+* 登录页
+*
+* */
+
+
+
 @Controller
 public class ManagerController {
 
@@ -125,7 +133,7 @@ public class ManagerController {
         boolean flag = managerService.createManager(manager);
         if(flag == true){
             map.put("msg","插入成功！");
-            return "redirect:share.html";
+            return "redirect:index.html";
         }else{
             map.put("msg","插入失败！");
             return "Register";
@@ -188,6 +196,8 @@ public class ManagerController {
             return "ForgotPassword";
         }
     }
+
+    /*内部修改密码*/
     @PutMapping("/resetpwd2")
     public String backLogin2(@RequestParam("managername") String managername1,
                             @RequestParam("managerpwd") String managerpwd1,

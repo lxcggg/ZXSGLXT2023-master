@@ -10,7 +10,11 @@ import org.springframework.web.bind.annotation.ResponseBody;
 
 import java.util.List;
 import java.util.Map;
-
+/*
+*
+* 图表分析
+*
+* */
 @Controller
 public class StatisticController {
     @Autowired

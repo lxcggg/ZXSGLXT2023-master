@@ -1,6 +1,7 @@
 package com.lxc.service.impl;
 
 import com.lxc.dao.UserMapper;
+import com.lxc.entity.Manager;
 import com.lxc.entity.User;
 import com.lxc.entity.UserExample;
 import org.springframework.beans.factory.annotation.Autowired;
@@ -125,4 +126,17 @@ public class UserServiceImpl {
             return false;
         }
     }
+
+    /*
+     * 创建新的管理员用户
+     * */
+    public boolean createUser(User user){
+        int i = userMapper.insertSelective(user);
+        if(i == 0){
+            return false;
+        }else {
+            return true;
+        }
+    }
+
 }
