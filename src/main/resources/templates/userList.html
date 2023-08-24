@@ -29,7 +29,7 @@
                                         <div class="card-header"><h3 class="text-center font-weight-light my-4">个人中心</h3></div>
                                         <div class="card-body">
                                             <div class="small mb-3 text-muted"></div>
-                                            <form th:action="@{/resetpwd2}" method="post">
+                                            <form th:action="@{/resetpwd2ForUser}" method="post">
                                                 <input type="hidden" name="_method" value="put">
                                                 <span class="help-block text-danger" id="info"></span>
                                                 <div class="form-group">
@@ -38,16 +38,26 @@
                                                 </div>
                                                 <div class="form-group">
                                                     <label class="small mb-1" for="inputManagerName">用户名</label>
-                                                    <input name="managername" class="form-control py-4" id="inputManagerName" type="text" maxlength="16"  th:value="${session.username}"  placeholder="输入你的用户名" />
+                                                    <input name="managername" class="form-control py-4" id="inputManagerName" type="text" maxlength="16"  th:value="${session.user.username}"  placeholder="输入你的用户名" readonly/>
+                                                    <span class="help-block text-info"></span>
+                                                </div>
+                                                <div class="form-group">
+                                                    <label class="small mb-1" for="inputUserid">用户id</label>
+                                                    <input name="userid" class="form-control py-4" id="inputUserId" type="text" maxlength="16"  th:value="${session.user.userid}"  placeholder="" readonly/>
                                                     <span class="help-block text-info"></span>
                                                 </div>
                                                 <div class="form-group">
                                                     <label class="small mb-1" for="inputNewPwd">新密码</label>
-                                                    <input name="managerpwd" class="form-control py-4" id="inputNewPwd" type="password" maxlength="16"  placeholder="输入你的新密码" />
+                                                    <input name="managerpwd" class="form-control py-4" id="inputNewPwd" type="password" maxlength="16" th:value="${session.user.userpwd}" placeholder="输入你的新密码" />
+                                                    <span class="help-block text-info"></span>
+                                                </div>
+                                                <div class="form-group">
+                                                    <label class="small mb-1" for="inputNewTel">手机号</label>
+                                                    <input name="usertel" class="form-control py-4" id="inputNewTel" type="text" maxlength="16"  th:value="${session.user.usertel}"  placeholder="输入你的新手机号" />
                                                     <span class="help-block text-info"></span>
                                                 </div>
                                                 <div class="form-group d-flex align-items-center justify-content-between mt-4 mb-0 col-auto">
-                                                    <button class="btn btn-primary" type="submit" id="save_btn">确定重置密码</button>
+                                                    <button class="btn btn-primary" type="submit" id="save_btn">确定重置信息</button>
                                                 </div>
                                             </form>
                                         </div>

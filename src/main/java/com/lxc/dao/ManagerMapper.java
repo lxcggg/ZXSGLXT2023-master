@@ -3,6 +3,8 @@ package com.lxc.dao;
 import com.lxc.entity.Manager;
 import com.lxc.entity.ManagerExample;
 import java.util.List;
+
+import com.lxc.entity.User;
 import org.apache.ibatis.annotations.Param;
 import org.apache.ibatis.annotations.Select;
 import org.springframework.stereotype.Component;
@@ -11,6 +13,8 @@ import org.springframework.stereotype.Component;
 public interface ManagerMapper {
     @Select("select * from manager where managername=#{managername} and managerpwd=#{managerpwd}")
     Manager manageLogin(@Param("managername") String managerName, @Param("managerpwd") String password);
+
+
 
     long countByExample(ManagerExample example);
 

@@ -10,6 +10,7 @@ import com.lxc.utils.Msg;
 import org.springframework.beans.factory.annotation.Autowired;
 import org.springframework.stereotype.Controller;
 import org.springframework.web.bind.annotation.*;
+import org.springframework.web.servlet.mvc.support.RedirectAttributes;
 
 import javax.servlet.http.HttpSession;
 import java.util.ArrayList;
@@ -264,11 +265,14 @@ public class UserController {
         String username = username2.trim();
         String userpwd = userpwd1.trim();
         if(username != "" && userpwd1!=""){
+            User user = userService.selectByUserName(username);
             boolean name = userService.checkUserName(username);
             boolean pwd = userService.checkUserPwd(userpwd);
             if(name == false && pwd ==false ){
 //                System.out.println("用户名或密码正确！");
-                session.setAttribute("username",username);
+
+                session.setAttribute("user",user);
+
                 return "redirect:/user23";
             }else{
 //                System.out.println("密码错误！");
@@ -314,4 +318,39 @@ public class UserController {
         return "Login2";
     }
 
+
+
+   /* @PostMapping("/modifyEmployee")
+    public String modifyEmployee(Employee employee, RedirectAttributes redirectAttrs) {
+        System.out.println(employee+"====================");
+        if (StringUtils.hasText(employee.getStatus())) {
+            if (employee.getStatus().equals("启用")) {
+                employee.setStatus("1");
+            } else {
+                employee.setStatus("0");
+            }
+        }
+        if (StringUtils.hasText(employee.getSex())) {
+            if (employee.getSex().equals("男")){
+                employee.setSex("1");
+            }else {
+                employee.setSex("0");
+            }
+        }
+        Integer flag = employeeService.updateEmployee(employee);
+        redirectAttrs.addAttribute("errorMessage", "修改成功！");
+        return "redirect:/employee";
+    }
+    */
+
+
+    @PutMapping("/resetpwd2ForUser")
+    public String backLogin2(User user, HttpSession session) {
+        Integer flag = userService.updateUserById(user);
+
+        // 更新会话中的属性
+        session.setAttribute("user", user);
+
+        return "redirect:/user23";
+    }
 }

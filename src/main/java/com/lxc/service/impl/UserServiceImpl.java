@@ -4,13 +4,14 @@ import com.lxc.dao.UserMapper;
 import com.lxc.entity.Manager;
 import com.lxc.entity.User;
 import com.lxc.entity.UserExample;
+import com.lxc.service.UserService;
 import org.springframework.beans.factory.annotation.Autowired;
 import org.springframework.stereotype.Service;
 
 import java.util.List;
 
 @Service
-public class UserServiceImpl {
+public class UserServiceImpl implements UserService {
 
     @Autowired
     UserMapper userMapper;
@@ -139,4 +140,13 @@ public class UserServiceImpl {
         }
     }
 
+    @Override
+    public User selectByUserName(String username) {
+        return userMapper.selectByUserName(username);
+    }
+
+    @Override
+    public Integer updateUserById(User user) {
+        return userMapper.updateUserById(user);
+    }
 }
