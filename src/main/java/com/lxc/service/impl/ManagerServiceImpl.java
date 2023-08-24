@@ -3,11 +3,12 @@ package com.lxc.service.impl;
 import com.lxc.dao.ManagerMapper;
 import com.lxc.entity.Manager;
 import com.lxc.entity.ManagerExample;
+import com.lxc.service.ManageService;
 import org.springframework.beans.factory.annotation.Autowired;
 import org.springframework.stereotype.Service;
 
 @Service
-public class ManagerServiceImpl {
+public class ManagerServiceImpl implements ManageService {
     @Autowired
     ManagerMapper managerMapper;
 
@@ -18,6 +19,12 @@ public class ManagerServiceImpl {
      * ==0说明数据库中没有查到姓名，不重复，可以用，  不存在
      * 如果不等于0，说明数据库中存在，用户名重复不可以用  存在
      */
+
+    @Override
+    public Manager manageLogin(String managername, String managerpwd) {
+        return managerMapper.manageLogin(managername,managerpwd);
+    }
+
     public boolean checkManagerName(String managerName){
         ManagerExample example = new ManagerExample();
         ManagerExample.Criteria criteria = example.createCriteria();
@@ -79,4 +86,6 @@ public class ManagerServiceImpl {
             return true;
         }
     }
+
+
 }

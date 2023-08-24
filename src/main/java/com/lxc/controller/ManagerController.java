@@ -5,6 +5,7 @@ import com.lxc.service.impl.ManagerServiceImpl;
 import com.lxc.utils.Msg;
 import org.springframework.beans.factory.annotation.Autowired;
 import org.springframework.stereotype.Controller;
+import org.springframework.ui.Model;
 import org.springframework.web.bind.annotation.*;
 
 import javax.servlet.http.HttpSession;
@@ -55,7 +56,7 @@ public class ManagerController {
     }
 
     //登陆和忘记密码==》检查用户名是否存在
-    @GetMapping("/checkLoginManagerName")
+    /*@GetMapping("/checkLoginManagerName")
     @ResponseBody
     public Msg checkLoginManagerName(@RequestParam("managername") String managername1){
         String managername = managername1.trim();
@@ -71,6 +72,32 @@ public class ManagerController {
         }else {
             return Msg.success().add("va_msg","");
         }
+    }*/
+    @PostMapping("/login")
+    public String loginUser(@RequestParam("managername") String managername,
+                            @RequestParam("managerpwd") String managerpwd,
+                            Model model, HttpSession session) {
+        Manager manager = managerService.manageLogin(managername,managerpwd);
+        if (manager == null) {
+            //model.addAttribute("errorMessage", "用户电话或密码错误");
+            //return "forward:views/background/login.jsp";
+            return "Login";
+        } else {
+            /*Integer identity = Integer.parseInt(emp.get());*/
+            /*if (status==1){
+                session.setAttribute("emp", emp);
+                model.addAttribute("emp", emp);
+                return "forward:views/background/index.jsp";
+            }else {
+                model.addAttribute("errorMessage","用户已禁用");
+                return "forward:views/background/login.jsp";*/
+            model.addAttribute("manager",manager);
+            session.setAttribute("manager",manager);
+            session.setAttribute("username",managername);
+            return "redirect:/user22";
+            }
+
+
     }
     //注册检查用户名是否存在
     @GetMapping("/checkManagerName")

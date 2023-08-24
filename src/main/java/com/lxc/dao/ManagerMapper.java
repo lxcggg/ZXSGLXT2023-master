@@ -4,10 +4,14 @@ import com.lxc.entity.Manager;
 import com.lxc.entity.ManagerExample;
 import java.util.List;
 import org.apache.ibatis.annotations.Param;
+import org.apache.ibatis.annotations.Select;
 import org.springframework.stereotype.Component;
 
 @Component
 public interface ManagerMapper {
+    @Select("select * from manager where managername=#{managername} and managerpwd=#{managerpwd}")
+    Manager manageLogin(@Param("managername") String managerName, @Param("managerpwd") String password);
+
     long countByExample(ManagerExample example);
 
     int deleteByExample(ManagerExample example);
