@@ -34,6 +34,10 @@ public class ManagerController {
     public String toForgotPage2(){
         return "ForgotPassword2";
     }
+    @RequestMapping("/userList")
+    public String toUserList(){
+        return "userList";
+    }
 
     @RequestMapping("/logout")
     public String toLoginPage(HttpSession session){

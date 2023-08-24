@@ -13,6 +13,7 @@ import org.springframework.web.bind.annotation.*;
 
 import javax.servlet.http.HttpSession;
 import java.util.ArrayList;
+import java.util.Enumeration;
 import java.util.List;
 import java.util.Map;
 
@@ -272,18 +273,18 @@ public class UserController {
             }else{
 //                System.out.println("密码错误！");
                 map.put("msg","账号密码错误，请重新输入账号和密码！");
-                return "Login";
+                return "Login2";
             }
         }else {
             map.put("msg","请输入账号or密码！");
-            return "Login";
+            return "Login2";
         }
     }
     @GetMapping("/user23")
     public String getUser(Map<String,Object> map){
         List<User> users = userService.getAll();
         map.put("users",users);
-        return "user23";
+        return "userList";
     }
     //进入注册页面
     @RequestMapping("/register02")
@@ -303,4 +304,14 @@ public class UserController {
             return "Register02";
         }
     }
+//用户退出登录
+    @RequestMapping("/logout2")
+    public String toLoginPage(HttpSession session){
+        Enumeration<String> attributeNames = session.getAttributeNames();
+        while (attributeNames.hasMoreElements()) {
+            session.removeAttribute(attributeNames.nextElement());
+        }
+        return "Login2";
+    }
+
 }
