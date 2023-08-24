@@ -11,5 +11,8 @@ import com.lxc.entity.User;
 public interface UserService {
 
     public User selectByUserName(String username);
+
     public Integer updateUserById(User user);
+
+    public User userLogin(String username, String userpwd);
 }

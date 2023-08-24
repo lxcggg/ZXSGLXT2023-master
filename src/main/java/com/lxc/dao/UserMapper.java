@@ -1,22 +1,24 @@
 package com.lxc.dao;
 
+import com.lxc.entity.Manager;
 import com.lxc.entity.User;
 import com.lxc.entity.UserExample;
 import java.util.List;
 import org.apache.ibatis.annotations.Param;
 import org.apache.ibatis.annotations.Select;
+import org.apache.ibatis.annotations.Update;
 import org.springframework.stereotype.Component;
 
 @Component
 public interface UserMapper {
 
+    @Select("select * from user where username=#{username} and userpwd=#{userpwd}")
+    User userLogin(@Param("username") String username, @Param("userpwd") String userpwd);
+
     @Select("select * from user where username=#{username}")
     User selectByUserName(@Param("username") String username);
 
-   /* @Update("update employee set username = #{username},status = #{status},name = #{name},sex= #{sex} where id = #{id}")
-    public Integer modifyEmployee(Employee employee);*/
-
-    @Select("update user set usertel=#{usertel} where userid=#{userid}")
+    @Update("update user set usertel=#{usertel},userpwd=#{userpwd} where userid=#{userid}")
     public Integer updateUserById(User user);
 
 

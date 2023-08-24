@@ -14,8 +14,6 @@ public interface ManagerMapper {
     @Select("select * from manager where managername=#{managername} and managerpwd=#{managerpwd}")
     Manager manageLogin(@Param("managername") String managerName, @Param("managerpwd") String password);
 
-
-
     long countByExample(ManagerExample example);
 
     int deleteByExample(ManagerExample example);

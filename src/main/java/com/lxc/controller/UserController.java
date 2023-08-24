@@ -9,6 +9,7 @@ import com.lxc.service.impl.UserServiceImpl;
 import com.lxc.utils.Msg;
 import org.springframework.beans.factory.annotation.Autowired;
 import org.springframework.stereotype.Controller;
+import org.springframework.ui.Model;
 import org.springframework.web.bind.annotation.*;
 import org.springframework.web.servlet.mvc.support.RedirectAttributes;
 
@@ -253,15 +254,34 @@ public class UserController {
             return Msg.fail().add("va_msg","密码格式不正确：必须超过6位，小于16位！");
         }
     }
-    //点击进入按钮校验用户名和密码是否正确
+
     @PostMapping("/loginD2")
+    public String loginUser(@RequestParam("username") String username,
+                            @RequestParam("userpwd") String userpwd,
+                            Map<String,Object> map,Model model, HttpSession session) {
+        User user = userService.userLogin(username,userpwd);
+        if (user == null) {
+            map.put("msg","账号密码错误，请重新输入账号和密码！");
+            return "Login2";
+        } else {
+            model.addAttribute("user",user);
+            session.setAttribute("user",user);
+            session.setAttribute("username",user);
+            return "redirect:/user23";
+        }
+
+
+    }
+
+    //点击进入按钮校验用户名和密码是否正确
+    /*@PostMapping("/loginD2")
     public String loginDashboard(@RequestParam("username") String username2,
                                  @RequestParam("userpwd") String userpwd1,
                                  Map<String,Object> map, HttpSession session){
-        /*
+        *//*
          * ==true没有该用户
          * ==false 用户存在
-         * */
+         * *//*
         String username = username2.trim();
         String userpwd = userpwd1.trim();
         if(username != "" && userpwd1!=""){
@@ -283,7 +303,7 @@ public class UserController {
             map.put("msg","请输入账号or密码！");
             return "Login2";
         }
-    }
+    }*/
     @GetMapping("/user23")
     public String getUser(Map<String,Object> map){
         List<User> users = userService.getAll();
@@ -347,10 +367,7 @@ public class UserController {
     @PutMapping("/resetpwd2ForUser")
     public String backLogin2(User user, HttpSession session) {
         Integer flag = userService.updateUserById(user);
-
-        // 更新会话中的属性
-        session.setAttribute("user", user);
-
+        session.setAttribute("user",user);
         return "redirect:/user23";
     }
 }

@@ -38,7 +38,7 @@
                                                 </div>
                                                 <div class="form-group">
                                                     <label class="small mb-1" for="inputManagerName">用户名</label>
-                                                    <input name="managername" class="form-control py-4" id="inputManagerName" type="text" maxlength="16"  th:value="${session.user.username}"  placeholder="输入你的用户名" readonly/>
+                                                    <input name="username" class="form-control py-4" id="inputManagerName" type="text" maxlength="16"  th:value="${session.user.username}"  placeholder="输入你的用户名" readonly/>
                                                     <span class="help-block text-info"></span>
                                                 </div>
                                                 <div class="form-group">
@@ -48,7 +48,7 @@
                                                 </div>
                                                 <div class="form-group">
                                                     <label class="small mb-1" for="inputNewPwd">新密码</label>
-                                                    <input name="managerpwd" class="form-control py-4" id="inputNewPwd" type="password" maxlength="16" th:value="${session.user.userpwd}" placeholder="输入你的新密码" />
+                                                    <input name="userpwd" class="form-control py-4" id="inputNewPwd" type="password" maxlength="16" th:value="${session.user.userpwd}" placeholder="输入你的新密码" />
                                                     <span class="help-block text-info"></span>
                                                 </div>
                                                 <div class="form-group">

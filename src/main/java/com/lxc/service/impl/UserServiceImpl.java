@@ -16,6 +16,11 @@ public class UserServiceImpl implements UserService {
     @Autowired
     UserMapper userMapper;
 
+    @Override
+    public User userLogin(String username, String userpwd) {
+        return userMapper.userLogin(username,userpwd);
+    }
+
     /*
     * 通过用户名进行模糊查询
     * */
@@ -149,4 +154,6 @@ public class UserServiceImpl implements UserService {
     public Integer updateUserById(User user) {
         return userMapper.updateUserById(user);
     }
+
+
 }
