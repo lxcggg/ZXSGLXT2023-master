@@ -2,7 +2,7 @@ spring:
   datasource:
     url: jdbc:mysql://localhost:3306/room?useUnicncoding=uode=true&characterEtf8&useSSL=false&serverTimezone=UTC
     username: root
-    password: 123456
+    password:
     driver-class-name: com.mysql.cj.jdbc.Driver
     type: com.alibaba.druid.pool.DruidDataSource
   mvc:
@@ -19,3 +19,4 @@ mybatis:
 server:
   tomcat:
     uri-encoding: UTF-8
+  port: 8086
