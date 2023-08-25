@@ -371,4 +371,12 @@ public class UserController {
         session.setAttribute("user",user);
         return "redirect:/user23";
     }
+
+    @GetMapping("/clearSessionMsg")
+    public String clearSessionMsg(HttpSession session){
+
+        session.removeAttribute("msg");
+
+        return "redirect:/user23";
+    }
 }

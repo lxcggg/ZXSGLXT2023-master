@@ -87,7 +87,25 @@
     setTimeout(function() {
         var notification = document.getElementById('notification');
         notification.style.display = 'none';
+
+        clearSessionMsg();
     }, 3000); // 3秒后隐藏提示
+
+
+/*弹窗后清除会话中的msg信息*/
+function clearSessionMsg() {
+    // 创建XMLHttpRequest对象
+    var xhr = new XMLHttpRequest();
+    // 设置请求方法和URL
+    xhr.open('GET', '/clearSessionMsg', true);
+    // 发送请求
+    xhr.send();
+}
+
+
+
+
+
 
 
     //点击保存，保存新增的管理员
