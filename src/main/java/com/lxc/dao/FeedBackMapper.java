@@ -29,4 +29,6 @@ public interface FeedBackMapper {
     int updateByPrimaryKeySelective(FeedBack record);
 
     int updateByPrimaryKey(FeedBack record);
+
+    List<FeedBack> selectById(Integer userId);
 }

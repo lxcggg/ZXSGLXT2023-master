@@ -28,7 +28,7 @@ CREATE TABLE `blacklist`  (
   `blackID` int(11) NOT NULL AUTO_INCREMENT COMMENT '黑名单编号',
   `userID` int(11) NOT NULL,
   `beginTime` datetime NULL DEFAULT NULL,
-  `cause` varchar(255) CHARACTER SET utf8 COLLATE utf8_general_ci NULL DEFAULT NULL,
+  `cause` varchar(255) CHARACTER SET utf8 COLLATE utf8_general_ci  NULL DEFAULT NULL,
   `status` varchar(10) CHARACTER SET utf8 COLLATE utf8_general_ci NULL DEFAULT NULL,
   PRIMARY KEY (`blackID`) USING BTREE,
   INDEX `userID`(`userID`) USING BTREE

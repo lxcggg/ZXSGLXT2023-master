@@ -24,4 +24,9 @@ public class FeedBackServiceImpl {
         List<FeedBack> feedBacks = feedBackMapper.selectByExample(null);
         return feedBacks;
     }
+
+    public List<FeedBack> getFeedbackById(Integer userId) {
+        List<FeedBack> feedBacks = feedBackMapper.selectById(userId);
+        return feedBacks;
+    }
 }
