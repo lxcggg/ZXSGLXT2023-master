@@ -28,6 +28,12 @@ public class SeatController {
         map.put("seats",seats);
         return "SeatResver";
     }
+    @GetMapping("/seatuser")
+    public String seatForUser(Map<String,Object> map){
+        List<Seat> seats = seatService.getAll();
+        map.put("seats",seats);
+        return "SeatResverForUser";
+    }
 
     //前端发起请求来修改座位状态，置为0
     @PutMapping("/updateSeatState/{seatid}")
