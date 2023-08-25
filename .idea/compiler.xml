@@ -7,8 +7,8 @@
         <sourceTestOutputDir name="target/generated-test-sources/test-annotations" />
         <outputRelativeToContentRoot value="true" />
         <module name="ZXSGLXT2023-master" />
-        <module name="room" />
         <module name="共享自习室管理系统 (2)" />
+        <module name="room" />
       </profile>
     </annotationProcessing>
   </component>

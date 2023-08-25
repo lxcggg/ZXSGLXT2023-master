@@ -13,10 +13,10 @@
 </head>
 <body class="sb-nav-fixed">
 <!--公共部分-->
-<div th:replace="commons/bar::topbar"></div>
+<div th:replace="commons/bar2::topbar"></div>
 <div id="layoutSidenav">
     <div id="layoutSidenav_nav">
-        <div th:replace="commons/bar::sidebar"></div>
+        <div th:replace="commons/bar2::sidebar"></div>
     </div>
 
     <div id="layoutSidenav_content">
@@ -24,28 +24,18 @@
             <div class="container-fluid">
                 <h1 class="mt-4">使用记录</h1>
                 <ol class="breadcrumb mb-4">
-                    <li class="breadcrumb-item"><a th:href="@{/user22}">主页</a></li>
+                    <li class="breadcrumb-item"><a th:href="@{/user23}">主页</a></li>
                     <li class="breadcrumb-item active">座位使用统计</li>
                 </ol>
                 <div class="card mb-4">
                     <div class="card-header">
                         <div class="row">
                             <div class="col-4"><i class="fas fa-user" aria-hidden="true"></i>座位使用统计</div>
-<!--                            <div class="col-1"><button type="button" class="btn btn-warning" id="exportTable"><i class="fas fa-table" aria-hidden="true"></i>导出</button></div>-->
+                            <!--                            <div class="col-1"><button type="button" class="btn btn-warning" id="exportTable"><i class="fas fa-table" aria-hidden="true"></i>导出</button></div>-->
                             <div class="col-3">
                                 <span class="text-danger" id="queryUserInfo"></span>
                             </div>
-                            <div class="col-2">
-                                <input type="text" placeholder="输入用户ID" class="form-control" maxlength="16" id="queryByUserID">
-                            </div>
-                            <div class="col-1">
-                                <button type="button" class="btn btn-info" id="queryBySeatID_btn"><i class="fas fa-search" aria-hidden="true"></i>搜索</button>
-                            </div>
-                            <div class="col-2">
-                                <button type="button" class="btn btn-info" id="queryAll"><i class="fas fa-search" aria-hidden="true"></i>查询全部</button>
-                            </div>
                         </div>
-
                     </div>
 
                     <div class="card-body">
@@ -53,8 +43,8 @@
                             <table class="table table-bordered" id="seatUseTable" width="100%" cellspacing="0">
                                 <thead class="thead-light">
                                 <tr>
-                                    <th>#</th>
-                                    <th>用户ID</th>
+                                    <!--<th>座位id</th>
+                                    <th>用户ID</th>-->
                                     <th>座位号</th>
                                     <th>开始时间</th>
                                     <th>结束时间</th>
@@ -64,17 +54,17 @@
                                 </thead>
 
                                 <tbody id="seatUserInfo">
-                                <!--<tr th:each="su:${sus}" >
-                                    <td th:text="${su.seatuseid}"></td>
-                                    <td th:text="${su.userid}"></td>
-                                    <td th:text="${su.seatid}"></td>
-                                    <td th:text="${#dates.format(su.begintime, 'yyyy-MM-dd HH:mm')}"></td>
-                                    <td th:text="${#dates.format(su.endtime, 'yyyy-MM-dd HH:mm')}"></td>
-                                    <td th:text="${su.state}=='1'?'预约记录':'使用记录'"></td>
-                                    <td style="text-align: center">
-                                        <button type="button" class="btn btn-primary" th:attr="cp_id=${fd.cpid},user_id=${fd.userid}" id="cpidAnduserid">详细信息</button>
-                                    </td>
-                                </tr>-->
+                                    <!--<tr th:each="su:${sus}" >
+                                        <td th:text="${su.seatuseid}"></td>
+                                        <td th:text="${su.userid}"></td>
+                                        <td th:text="${su.seatid}"></td>
+                                        <td th:text="${#dates.format(su.begintime, 'yyyy-MM-dd HH:mm')}"></td>
+                                        <td th:text="${#dates.format(su.endtime, 'yyyy-MM-dd HH:mm')}"></td>
+                                        <td th:text="${su.state}=='1'?'预约记录':'使用记录'"></td>
+                                        <td style="text-align: center">
+                                            <button type="button" class="btn btn-primary" th:attr="cp_id=${fd.cpid},user_id=${fd.userid}" id="cpidAnduserid">详细信息</button>
+                                        </td>
+                                    </tr>-->
                                 </tbody>
                             </table>
                             <!-- 分页条 -->
@@ -108,6 +98,7 @@
 <script type="text/javascript">
     var totalRecord;
     var currentPage;
+
     $(function() {
         to_page(1);
     })
@@ -154,8 +145,8 @@
         $("#seatUseTable tbody").empty();
         var seatUses=result.extend.pageInfo.list;
         $.each(seatUses,function(index,item){
-            var seatuseidTd=$("<td></td>").append(item.seatuseid);
-            var useridTd=$("<td></td>").append(item.userid);
+            /*var seatuseidTd=$("<td></td>").append(item.seatuseid);
+            var useridTd=$("<td></td>").append(item.userid);*/
             var seatidTd=$("<td></td>").append(item.seatid);
             var beginTimeTd=$("<td></td>").append(new Date(item.begintime).format("yyyy-MM-dd hh:mm:ss"));
             var endTimeTd=$("<td></td>").append(new Date(item.endtime).format("yyyy-MM-dd hh:mm:ss"));
@@ -165,8 +156,8 @@
             var btnTd=$("<td></td>").append(delBtn);
             delBtn.attr("seatuse_id",item.seatuseid);
             //append方法执行完成以后还是返回原来的元素
-            $("<tr></tr>").append(seatuseidTd)
-                .append(useridTd)
+            $("<tr></tr>")/*.append(seatuseidTd)
+                .append(useridTd)*/
                 .append(seatidTd)
                 .append(beginTimeTd)
                 .append(endTimeTd)
@@ -243,48 +234,9 @@
         });
     })
 
-    /***************************************删除操作********************/
-    $(document).on("click",".del_btn",function(){
-        var seatuseid = $(this).attr("seatuse_id");
-        if(confirm("确定删除"+seatuseid+"座位记录吗？")){
-            //如果点击确定，发送ajax请求去删除
-            $.ajax({
-                url: "/deleteSeatUseByID/" + seatuseid,
-                type: "DELETE",
-                success: function(result){
-                    to_page(currentPage);
-                }
-            });
-        }
-    })
+
     /********************************根据用户ID查询该座位信息*****************************************/
-    $(document).on('click','#queryBySeatID_btn',function () {
-        if($('#queryByUserID').val() == ""){
-            $("#queryUserInfo").text("请输入用户ID!");
-            return false;
-        }else {
-            $("#queryUserInfo").text("");
-        }
-        var userid = $('#queryByUserID').val();
-        $.ajax({
-            url:"/queryByUserID/"+userid,
-            type:"GET",
-            success:function(result) {
-                if(result.code == 100){
-                    //console.log();
-                    //1.解析并显示员工数据
-                    bulid_emps_table(result);
-                    //2.显示分页信息
-                    build_page_info(result);
-                    //3.解析并显示分页信息
-                    build_page_nav(result);
-                    $("queryUserInfo").text("");
-                }else {
-                    $("#queryUserInfo").text("没有查到，请重新输入!");
-                }
-            }
-        })
-    })
+
     $(document).on('click','#queryAll',function () {
         to_page(1);
     })

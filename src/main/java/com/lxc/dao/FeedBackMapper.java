@@ -3,11 +3,17 @@ package com.lxc.dao;
 import com.lxc.entity.FeedBack;
 import com.lxc.entity.FeedBackExample;
 import java.util.List;
+
+import com.lxc.entity.User;
 import org.apache.ibatis.annotations.Param;
+import org.apache.ibatis.annotations.Select;
 import org.springframework.stereotype.Component;
 
 @Component
 public interface FeedBackMapper {
+
+
+
     long countByExample(FeedBackExample example);
 
     int deleteByExample(FeedBackExample example);
@@ -29,4 +35,6 @@ public interface FeedBackMapper {
     int updateByPrimaryKeySelective(FeedBack record);
 
     int updateByPrimaryKey(FeedBack record);
+
+    List<FeedBack> selectById(Integer userId);
 }

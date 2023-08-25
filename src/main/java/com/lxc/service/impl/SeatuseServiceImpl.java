@@ -3,15 +3,21 @@ package com.lxc.service.impl;
 import com.lxc.dao.SeatuseMapper;
 import com.lxc.entity.Seatuse;
 import com.lxc.entity.SeatuseExample;
+import com.lxc.service.SeatuseService;
 import org.springframework.beans.factory.annotation.Autowired;
 import org.springframework.stereotype.Service;
 
 import java.util.List;
 
 @Service
-public class SeatuseServiceImpl {
+public class SeatuseServiceImpl implements SeatuseService {
     @Autowired
     SeatuseMapper seatuseMapper;
+
+    @Override
+    public List<Seatuse> findSeatuseByid(Integer userid) {
+        return seatuseMapper.selectSeatuseById(userid);
+    }
 
     /*
      * 通过用户ID进行查询
@@ -69,4 +75,6 @@ public class SeatuseServiceImpl {
         long l = seatuseMapper.countByExample(example);
         return l;
     }
+
+
 }

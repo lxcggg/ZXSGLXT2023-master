@@ -20,6 +20,7 @@ public class SeatServiceImpl {
         List<Seat> seats = seatMapper.selectByExample(null);
         return seats;
     }
+
     /*
     * 修改预约状态为0 ，取消预约
     * */

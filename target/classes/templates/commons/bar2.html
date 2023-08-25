@@ -8,7 +8,7 @@
 
 <!--顶部top-->
 <nav class="sb-topnav navbar navbar-expand navbar-dark bg-dark" th:fragment="topbar">
-    <a class="navbar-brand" th:href="@{/user22}">主页</a>
+    <a class="navbar-brand" th:href="@{/user23}">主页</a>
     <button class="btn btn-link btn-sm order-1 order-lg-0" id="sidebarToggle" href="#"><i class="fas fa-bars"></i></button>
     <span class="navbar-brand  ml-auto" ><i class="fas fa-user"></i>  当前用户： [[${session.user.username}]] </span>
 </nav>
@@ -17,22 +17,18 @@
     <div class="sb-sidenav-menu">
         <div class="nav">
 <!--            <div class="sb-sidenav-menu-heading">数据分析</div>-->
-            <!--<a class="nav-link" th:href="@{/user23}">
-                <nav class="sb-sidenav-menu-nested nav">
-                    <div class="sb-nav-link-icon"><i class="fas fa-industry"></i>自习室数据总览</div>
-                </nav>
-            </a>-->
+
             <div class="sb-sidenav-menu-heading"><i class="fas fa-columns"></i>用户管理</div>
             <nav class="sb-sidenav-menu-nested nav">
                 <!--<a class="nav-link" th:href="@{/usertables}">用户信息管理</a>-->
                 <a class="nav-link" th:href="@{/userList}">个人中心</a>
                 <a class="nav-link" th:href="@{/##}">用户投诉</a>
-                <a class="nav-link" th:href="@{/##}">反馈信息</a>
+                <a class="nav-link" th:href="@{/toFeedback2}">反馈信息</a>
             </nav>
             <div class="sb-sidenav-menu-heading"><i class="fas fa-columns"></i>座位管理</div>
             <nav class="sb-sidenav-menu-nested nav accordion" id="sidenavAccordionPages">
-                <a class="nav-link" th:href="@{/##}">实时座位管理</a>
-                <a class="nav-link" th:href="@{/##}">座位使用统计</a>
+                <a class="nav-link" th:href="@{/seatuser}">预约座位</a>
+                <a class="nav-link" th:href="@{/seatUseID}">座位使用统计</a>
             </nav>
 <!--            <div class="sb-sidenav-menu-heading">密码管理</div>-->
 <!--            <nav class="sb-sidenav-menu-nested nav accordion" >-->

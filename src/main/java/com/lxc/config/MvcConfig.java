@@ -27,6 +27,7 @@ public class MvcConfig implements WebMvcConfigurer {
                 registry.addViewController("/main.html").setViewName("Login2");
                 registry.addViewController("/tables.html").setViewName("Tables");
                 registry.addViewController("/user.html").setViewName("userList");
+                registry.addViewController("/share.html").setViewName("Login");
             }
 
             //注册拦截器
@@ -41,7 +42,6 @@ public class MvcConfig implements WebMvcConfigurer {
         };
         return adapter;
     }
-
 
 }
 
