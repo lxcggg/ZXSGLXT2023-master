@@ -24,7 +24,7 @@
             <div class="container-fluid">
                 <h1 class="mt-4">使用记录</h1>
                 <ol class="breadcrumb mb-4">
-                    <li class="breadcrumb-item"><a th:href="@{/user22}">主页</a></li>
+                    <li class="breadcrumb-item"><a th:href="@{/user23}">主页</a></li>
                     <li class="breadcrumb-item active">座位使用统计</li>
                 </ol>
                 <div class="card mb-4">
@@ -43,8 +43,8 @@
                             <table class="table table-bordered" id="seatUseTable" width="100%" cellspacing="0">
                                 <thead class="thead-light">
                                 <tr>
-                                    <th>#</th>
-                                    <th>用户ID</th>
+                                    <!--<th>座位id</th>
+                                    <th>用户ID</th>-->
                                     <th>座位号</th>
                                     <th>开始时间</th>
                                     <th>结束时间</th>
@@ -145,8 +145,8 @@
         $("#seatUseTable tbody").empty();
         var seatUses=result.extend.pageInfo.list;
         $.each(seatUses,function(index,item){
-            var seatuseidTd=$("<td></td>").append(item.seatuseid);
-            var useridTd=$("<td></td>").append(item.userid);
+            /*var seatuseidTd=$("<td></td>").append(item.seatuseid);
+            var useridTd=$("<td></td>").append(item.userid);*/
             var seatidTd=$("<td></td>").append(item.seatid);
             var beginTimeTd=$("<td></td>").append(new Date(item.begintime).format("yyyy-MM-dd hh:mm:ss"));
             var endTimeTd=$("<td></td>").append(new Date(item.endtime).format("yyyy-MM-dd hh:mm:ss"));
@@ -156,8 +156,8 @@
             var btnTd=$("<td></td>").append(delBtn);
             delBtn.attr("seatuse_id",item.seatuseid);
             //append方法执行完成以后还是返回原来的元素
-            $("<tr></tr>").append(seatuseidTd)
-                .append(useridTd)
+            $("<tr></tr>")/*.append(seatuseidTd)
+                .append(useridTd)*/
                 .append(seatidTd)
                 .append(beginTimeTd)
                 .append(endTimeTd)

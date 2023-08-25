@@ -8,6 +8,7 @@ import com.lxc.service.impl.SeatuseServiceImpl;
 import com.lxc.utils.Msg;
 import org.springframework.beans.factory.annotation.Autowired;
 import org.springframework.stereotype.Controller;
+import org.springframework.ui.Model;
 import org.springframework.web.bind.annotation.*;
 
 import javax.servlet.http.HttpServletRequest;
@@ -37,19 +38,25 @@ public class SeatuseController {
         return Msg.success().add("pageInfo",page);
     }
 
-
-    /*
-     * 用户到座位使用统计页面
-     * */
-    @RequestMapping("/seatUseID")
-    public String toSeatUserPage2(Map<String,Object> map, HttpServletRequest request){
+    @GetMapping("/seatUseID")
+    public String toSeatUserPage2(Map<String,Object> map,HttpServletRequest request){
         HttpSession session = request.getSession();
-        User user = (User) session.getAttribute("user");// 假设用户对象存在于名为"user"的session属性中
-        System.out.println(user.getUserid());
-        List<Seatuse> seatusers = seatuseService.queryByUserID(user.getUserid());
+        User user = (User) session.getAttribute("user");
+        List<Seatuse> seatusers = seatuseService.findSeatuseByid(user.getUserid());
         map.put("sus",seatusers);
         return "SeatUse2";
     }
+    /*
+     * 用户到座位使用统计页面
+     * */
+    /*@RequestMapping("/seatUseID")
+    public String toSeatUserPage2(Map<String,Object> map, HttpServletRequest request){
+        HttpSession session = request.getSession();
+        User user = (User) session.getAttribute("user");// 假设用户对象存在于名为"user"的session属性中
+        List<Seatuse> seatusers = seatuseService.queryByUserID(user.getUserid());
+
+        return "SeatUse2";
+    }*/
 
     /*
     * 到座位使用统计页面
@@ -64,12 +71,15 @@ public class SeatuseController {
 
     @GetMapping("/seatUsePage")
     @ResponseBody
-    public Msg SeatUserInfo(@RequestParam(value = "pn",defaultValue = "1") Integer pn){
+    public Msg SeatUserInfo(@RequestParam(value = "pn",defaultValue = "1") Integer pn,
+                            HttpServletRequest request){
         PageHelper.startPage(pn,6);
-        List<Seatuse> seatusers = seatuseService.getAll();
+        HttpSession session = request.getSession();
+        User user = (User) session.getAttribute("user");
+        List<Seatuse> seatuseByid = seatuseService.findSeatuseByid(user.getUserid());
         //使用pageInfo包装查询后的结果，只需要将pageInfo交给页面就好了
         //封装了详细的分页信息，包括有我们查询出来的数据，传入连续显示的页数
-        PageInfo<Seatuse> page=new PageInfo<Seatuse>(seatusers,5);
+        PageInfo<Seatuse> page=new PageInfo<Seatuse>(seatuseByid,5);
         return Msg.success().add("pageInfo",page);
     }
 
