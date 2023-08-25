@@ -264,9 +264,9 @@ public class UserController {
             map.put("msg","账号密码错误，请重新输入账号和密码！");
             return "Login2";
         } else {
-            model.addAttribute("user",user);
+
             session.setAttribute("user",user);
-            session.setAttribute("username",user);
+
             return "redirect:/user23";
         }
 
@@ -365,8 +365,9 @@ public class UserController {
 
 
     @PutMapping("/resetpwd2ForUser")
-    public String backLogin2(User user, HttpSession session) {
+    public String backLogin2(User user, HttpSession session, Map<String,Object> map) {
         Integer flag = userService.updateUserById(user);
+        session.setAttribute("msg","修改成功！");
         session.setAttribute("user",user);
         return "redirect:/user23";
     }

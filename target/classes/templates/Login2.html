@@ -30,7 +30,7 @@
                                 <div class="card-header">
                                     <h3 class="text-center font-weight-light my-4 text-primary">共享自习室管理系统<br/></h3>
                                     <div class="card-body ">
-                                        <form th:action="@{/loginD2}" method="post">
+                                        <form action="loginD2" method="post">
                                             <div class="form-group">
                                                 <!--/*@thymesVar id="msg" type=""*/-->
                                                 <p style="color: #ff0000" th:text="${msg}" id="mima" th:if="${not #strings.isEmpty(msg)}"></p>
