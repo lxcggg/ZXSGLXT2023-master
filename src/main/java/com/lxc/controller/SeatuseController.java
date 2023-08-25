@@ -3,12 +3,15 @@ package com.lxc.controller;
 import com.github.pagehelper.PageHelper;
 import com.github.pagehelper.PageInfo;
 import com.lxc.entity.Seatuse;
+import com.lxc.entity.User;
 import com.lxc.service.impl.SeatuseServiceImpl;
 import com.lxc.utils.Msg;
 import org.springframework.beans.factory.annotation.Autowired;
 import org.springframework.stereotype.Controller;
 import org.springframework.web.bind.annotation.*;
 
+import javax.servlet.http.HttpServletRequest;
+import javax.servlet.http.HttpSession;
 import java.util.List;
 import java.util.Map;
 /*
@@ -33,6 +36,21 @@ public class SeatuseController {
         PageInfo<Seatuse> page=new PageInfo<Seatuse>(users,5);
         return Msg.success().add("pageInfo",page);
     }
+
+
+    /*
+     * 用户到座位使用统计页面
+     * */
+    @RequestMapping("/seatUseID")
+    public String toSeatUserPage2(Map<String,Object> map, HttpServletRequest request){
+        HttpSession session = request.getSession();
+        User user = (User) session.getAttribute("user");// 假设用户对象存在于名为"user"的session属性中
+        System.out.println(user.getUserid());
+        List<Seatuse> seatusers = seatuseService.queryByUserID(user.getUserid());
+        map.put("sus",seatusers);
+        return "SeatUse2";
+    }
+
     /*
     * 到座位使用统计页面
     * */
@@ -42,6 +60,7 @@ public class SeatuseController {
         map.put("sus",seatusers);
         return "SeatUse";
     }
+
 
     @GetMapping("/seatUsePage")
     @ResponseBody
@@ -53,6 +72,7 @@ public class SeatuseController {
         PageInfo<Seatuse> page=new PageInfo<Seatuse>(seatusers,5);
         return Msg.success().add("pageInfo",page);
     }
+
 
 
     /*
@@ -68,6 +88,9 @@ public class SeatuseController {
             return Msg.fail().add("va_msg","插入到座位使用记录表失败！");
         }
     }
+
+
+
 
     @DeleteMapping("/deleteSeatUseByID/{seatuserid}")
     @ResponseBody
