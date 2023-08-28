@@ -46,6 +46,20 @@ public class SeatuseController {
         map.put("sus",seatusers);
         return "SeatUse2";
     }
+
+    @GetMapping("/seatUsePage2")
+    @ResponseBody
+    public Msg SeatUserInfo2(@RequestParam(value = "pn",defaultValue = "1") Integer pn,
+                            HttpServletRequest request){
+        PageHelper.startPage(pn,6);
+        HttpSession session = request.getSession();
+        User user = (User) session.getAttribute("user");
+        List<Seatuse> seatuseByid = seatuseService.findSeatuseByid(user.getUserid());
+        //使用pageInfo包装查询后的结果，只需要将pageInfo交给页面就好了
+        //封装了详细的分页信息，包括有我们查询出来的数据，传入连续显示的页数
+        PageInfo<Seatuse> page=new PageInfo<Seatuse>(seatuseByid,5);
+        return Msg.success().add("pageInfo",page);
+    }
     /*
      * 用户到座位使用统计页面
      * */
@@ -73,14 +87,10 @@ public class SeatuseController {
     @ResponseBody
     public Msg SeatUserInfo(@RequestParam(value = "pn",defaultValue = "1") Integer pn,
                             HttpServletRequest request){
-        PageHelper.startPage(pn,6);
-        HttpSession session = request.getSession();
-        User user = (User) session.getAttribute("user");
-        List<Seatuse> seatuseByid = seatuseService.findSeatuseByid(user.getUserid());
-        //使用pageInfo包装查询后的结果，只需要将pageInfo交给页面就好了
-        //封装了详细的分页信息，包括有我们查询出来的数据，传入连续显示的页数
-        PageInfo<Seatuse> page=new PageInfo<Seatuse>(seatuseByid,5);
-        return Msg.success().add("pageInfo",page);
+        PageHelper.startPage(pn, 6);
+        List<Seatuse> seatusers = this.seatuseService.getAll();
+        PageInfo<Seatuse> page = new PageInfo(seatusers, 5);
+        return Msg.success().add("pageInfo", page);
     }
 
 
