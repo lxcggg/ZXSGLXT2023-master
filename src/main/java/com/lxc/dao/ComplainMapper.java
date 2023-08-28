@@ -3,6 +3,8 @@ package com.lxc.dao;
 import com.lxc.entity.Complain;
 import com.lxc.entity.ComplainExample;
 import java.util.List;
+
+import com.lxc.entity.FeedBack;
 import org.apache.ibatis.annotations.Param;
 import org.springframework.stereotype.Component;
 
@@ -29,4 +31,8 @@ public interface ComplainMapper {
     int updateByPrimaryKeySelective(Complain record);
 
     int updateByPrimaryKey(Complain record);
+
+    List<Complain> selectByuserId(Integer userId);
+
+    int insertSelect(Complain complain);
 }

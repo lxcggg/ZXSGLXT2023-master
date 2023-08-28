@@ -84,6 +84,13 @@
       order by ${orderByClause}
     </if>
   </select>
+  <select id="selectByuserId" parameterType="java.lang.Integer" resultMap="BaseResultMap">
+
+    select
+    <include refid="Base_Column_List" />
+    from Complain
+    where userID = #{userId,jdbcType=INTEGER}
+  </select>
   <select id="selectByPrimaryKey" parameterType="java.lang.Integer" resultMap="BaseResultMap">
     select 
     <include refid="Base_Column_List" />
@@ -149,6 +156,7 @@
       <include refid="Example_Where_Clause" />
     </if>
   </select>
+  
   <update id="updateByExampleSelective" parameterType="map">
     update Complain
     <set>
@@ -209,4 +217,33 @@
       ps = #{ps,jdbcType=VARCHAR}
     where cpID = #{cpid,jdbcType=INTEGER}
   </update>
+  <insert id="insertSelect" parameterType="com.lxc.entity.Complain">
+    insert into Complain
+    <trim prefix="(" suffix=")" suffixOverrides=",">
+
+      <if test="userid != null">
+        userID,
+      </if>
+      <if test="cpdate != null">
+        cpDate,
+      </if>
+      <if test="cptext != null">
+        cpText,
+      </if>
+      ps
+    </trim>
+    <trim prefix="values (" suffix=")" suffixOverrides=",">
+
+      <if test="userid != null">
+        #{userid,jdbcType=INTEGER},
+      </if>
+      <if test="cpdate != null">
+        #{cpdate,jdbcType=TIMESTAMP},
+      </if>
+      <if test="cptext != null">
+        #{cptext,jdbcType=VARCHAR},
+      </if>
+      #{ps,jdbcType=VARCHAR}
+    </trim>
+  </insert>
 </mapper>

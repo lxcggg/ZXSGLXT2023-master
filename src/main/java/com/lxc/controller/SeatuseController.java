@@ -71,15 +71,12 @@ public class SeatuseController {
 
     @GetMapping("/seatUsePage")
     @ResponseBody
-    public Msg SeatUserInfo(@RequestParam(value = "pn",defaultValue = "1") Integer pn,
-                            HttpServletRequest request){
+    public Msg SeatUserInfo(@RequestParam(value = "pn",defaultValue = "1") Integer pn){
         PageHelper.startPage(pn,6);
-        HttpSession session = request.getSession();
-        User user = (User) session.getAttribute("user");
-        List<Seatuse> seatuseByid = seatuseService.findSeatuseByid(user.getUserid());
+        List<Seatuse> seatusers = seatuseService.getAll();
         //使用pageInfo包装查询后的结果，只需要将pageInfo交给页面就好了
         //封装了详细的分页信息，包括有我们查询出来的数据，传入连续显示的页数
-        PageInfo<Seatuse> page=new PageInfo<Seatuse>(seatuseByid,5);
+        PageInfo<Seatuse> page=new PageInfo<Seatuse>(seatusers,5);
         return Msg.success().add("pageInfo",page);
     }
 
