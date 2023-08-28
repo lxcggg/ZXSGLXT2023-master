@@ -3,6 +3,8 @@ package com.lxc.dao;
 import com.lxc.entity.Blacklist;
 import com.lxc.entity.BlacklistExample;
 import java.util.List;
+
+import com.lxc.entity.Complain;
 import org.apache.ibatis.annotations.Param;
 import org.springframework.stereotype.Component;
 
@@ -29,4 +31,7 @@ public interface BlacklistMapper {
     int updateByPrimaryKeySelective(Blacklist record);
 
     int updateByPrimaryKey(Blacklist record);
+
+    int  insertBlack(Blacklist blacklist);
+
 }

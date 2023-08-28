@@ -3,6 +3,7 @@ package com.lxc.service.impl;
 import com.lxc.dao.BlacklistMapper;
 import com.lxc.entity.Blacklist;
 import com.lxc.entity.BlacklistExample;
+import com.lxc.entity.Complain;
 import org.springframework.beans.factory.annotation.Autowired;
 import org.springframework.stereotype.Service;
 
@@ -43,4 +44,13 @@ public class BlacklistServiceImpl {
         int i = blacklistMapper.updateByExampleSelective(blacklist, example);
         return i>0;
     }
+
+
+    //插入投诉ID和反馈内容
+    public boolean insertBC(Blacklist blacklist){
+        int i = blacklistMapper.insertBlack(blacklist);
+        return i > 0;
+    }
+
+
 }

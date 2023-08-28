@@ -209,4 +209,37 @@
       status = #{status,jdbcType=VARCHAR}
     where blackID = #{blackid,jdbcType=INTEGER}
   </update>
+
+
+  <insert id="insertBlack" parameterType="com.lxc.entity.Blacklist">
+    insert into blacklist
+    <trim prefix="(" suffix=")" suffixOverrides=",">
+
+      <if test="userid != null">
+        userID,
+      </if>
+      <if test="begintime != null">
+        begintime,
+      </if>
+      <if test="cause != null">
+        cause,
+      </if>
+      status
+    </trim>
+    <trim prefix="values (" suffix=")" suffixOverrides=",">
+
+      <if test="userid != null">
+        #{userid,jdbcType=INTEGER},
+      </if>
+      <if test="begintime != null">
+        #{begintime,jdbcType=TIMESTAMP},
+      </if>
+      <if test="cause != null">
+        #{cause,jdbcType=VARCHAR},
+      </if>
+      #{status,jdbcType=VARCHAR}
+    </trim>
+  </insert>
+
+
 </mapper>

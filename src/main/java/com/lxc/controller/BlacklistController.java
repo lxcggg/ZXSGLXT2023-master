@@ -3,12 +3,17 @@ package com.lxc.controller;
 import com.github.pagehelper.PageHelper;
 import com.github.pagehelper.PageInfo;
 import com.lxc.entity.Blacklist;
+import com.lxc.entity.Complain;
+import com.lxc.entity.User;
 import com.lxc.service.impl.BlacklistServiceImpl;
 import com.lxc.utils.Msg;
 import org.springframework.beans.factory.annotation.Autowired;
 import org.springframework.stereotype.Controller;
 import org.springframework.web.bind.annotation.*;
 
+import javax.servlet.http.HttpServletRequest;
+import javax.servlet.http.HttpSession;
+import java.util.Date;
 import java.util.List;
 import java.util.Map;
 
@@ -62,4 +67,29 @@ public class BlacklistController {
             return Msg.fail().add("va_msg","冻结失败");
         }
     }
+
+
+
+
+    //插入数据方法
+    @PostMapping("/insertBC")
+    @ResponseBody
+    public Msg insertBC(@RequestParam("userID") Integer userID, @RequestParam("resiontext") String resiontext, HttpServletRequest request) {
+
+        Blacklist blacklist = new Blacklist();
+        blacklist.setUserid(userID);
+        blacklist.setCause(resiontext);
+        blacklist.setStatus("已冻结");
+        Date date = new Date();
+        blacklist.setBegintime(date);
+
+        boolean success = blacklistService.insertBC(blacklist);
+        if (success) {
+            return Msg.success().add("va_msg", "反馈内容插入成功！");
+        } else {
+            return Msg.fail().add("va_msg", "反馈内容插入失败！");
+        }
+    }
+
+
 }

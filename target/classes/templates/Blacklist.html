@@ -20,6 +20,44 @@
         <div th:replace="commons/bar::sidebar"></div>
     </div>
 
+    <!-- 黑名单的模态框 -->
+    <div class="modal fade" id="adminBlacklist" tabindex="-1" role="dialog" aria-labelledby="adminModalLabel">
+        <div class="modal-dialog" role="document">
+            <div class="modal-content">
+                <div class="modal-header">
+                    <h4 class="modal-title" id="adminModalLabel">添加</h4>
+                    <button type="button" class="close" data-dismiss="modal" aria-label="Close"><span aria-hidden="true">&times;</span></button>
+                </div>
+                <div class="modal-body">
+                    <form class="form-horizontal">
+                        <div class="form-group">
+                            <span class="help-block text-danger" id="info"></span>
+                        </div>
+                        <div class="form-group">
+                            <label class="col-sm-4 control-label">用户ID</label>
+                            <div class="col-sm-12">
+                                <input type="text" name="userID" class="form-control" maxlength="16" id="userID" placeholder="请输入ID">
+                                <span class="help-block text-info" ></span>
+                            </div>
+                        </div>
+                        <div class="form-group">
+                            <label class="col-sm-4 control-label">原因</label>
+                            <div class="col-sm-12">
+                                <input type="text" name="resiontext" class="form-control"  id="resiontext" placeholder="请输入原因">
+                                <span class="help-block text-info" ></span>
+                            </div>
+                        </div>
+                    </form>
+                    <div class="modal-footer">
+                        <button type="button" class="btn btn-default" data-dismiss="modal">关闭</button>
+                        <button type="button" class="btn btn-primary" id="black_btn">保存</button>
+                    </div>
+                </div>
+            </div>
+        </div>
+    </div>
+
+
     <div id="layoutSidenav_content">
         <main>
             <div class="container-fluid">
@@ -28,8 +66,22 @@
                     <li class="breadcrumb-item"><a th:href="@{/user22}">主页</a></li>
                     <li class="breadcrumb-item active">黑名单</li>
                 </ol>
-                <div class="card mb-4">
-                    <div class="card-header"><i class="fas fa-user" aria-hidden="true"></i>黑名单管理</div>
+                <div class="card-header">
+                    <div class="row align-items-center justify-content-between">
+                        <div class="col-auto">
+                            <h5 class="m-0"><i class="fas fa-user" aria-hidden="true"></i> 黑名单管理</h5>
+                        </div>
+                        <div class="col-auto">
+                            <button id="addBlack" type="button" class="btn btn-info">黑名单添加</button>
+                        </div>
+                    </div>
+                </div>
+
+
+                    </div>
+
+
+
                     <div class="card-body">
                         <div class="table-responsive">
                             <table class="table table-bordered" id="dataTable" width="100%" cellspacing="0">
@@ -58,7 +110,7 @@
                         </div>
                     </div>
                 </div>
-            </div>
+
         </main>
         <div class="modal fade" id="userModal" tabindex="-1" role="dialog" aria-labelledby="exampleModalLabel" aria-hidden="true">
             <div class="modal-dialog" role="document">
@@ -283,6 +335,8 @@
             }
         });
     })
+
+
     //点击用户信息按钮，弹出模态框
     $(document).on("click",".user_btn",function(){
         var userid = $(this).attr("user_id");
@@ -307,6 +361,214 @@
             }
         });
     }
+
+
+
+    /**********************************分页***************************************/
+    //点击保存，保存新增的黑名单
+    $("#save_btn").click(function(){
+        var blackid = $("#blackid_add_inpput").val();
+        var userTel = $("#userTel_add_inpput").val();
+        var userPwd = $("#userPwd_add_inpput").val();
+        if(userName == ""){
+            $("#info").text("请输入用户姓名！");
+            return false;
+        }
+        if(userTel == ""){
+            $("#info").text("请输入手机号码！");
+            return false;
+        }
+        if(userPwd == ""){
+            $("#info").text("请输入密码！");
+            return false;
+        }
+        if(userName!="" && userTel!=null && userPwd!=""){
+            $("#info").text("");
+        }
+        //判断之前的ajax用户名校验是否成功，如果成功继续，否则终止
+        if($(this).attr("ajax_userName") == "error"){
+            return false;
+        }
+        if($(this).attr("ajax_userTel") == "error"){
+            return false;
+        }
+        if($(this).attr("ajax_userAge") == "error"){
+            return false;
+        }
+        if($(this).attr("ajax_userPwd") == "error"){
+            return false;
+        }
+    });
+
+    //显示校验的提示信息
+    function show_validate_msg(ele,status,msg){
+        //清楚当前元素的校验状态
+        $(ele).parent().removeClass("has-success has-error");
+        $(ele).next("span").text();
+        if("success"==status){
+            $(ele).parent().addClass("has-success");
+            $(ele).next("span").text(msg);
+        }else if("error"==status){
+            $(ele).parent().addClass("has-error");
+            $(ele).next("span").text(msg);
+        }
+    }
+
+    //点击保存（插入）按钮
+    $(document).on("click","#save_btn",function(){
+        var userName=$("#userName_add_inpput").val();
+        var userTel=$("#userTel_add_inpput").val();
+        var userPwd=$("#userPwd_add_inpput").val();
+        var userAge=$("#userAge_add_inpput").val();
+        var userGender=$("#gender1_add_input").val() == 'M'?'M':'F';
+        //发送ajax，请求用户名是否可用
+        $.ajax({
+            url:"/insertUser",
+            type:"POST",
+            data:{username:userName,usertel:userTel,userpwd:userPwd,userage:userAge,usergender:userGender},
+            success:function(result){
+                if(result.code == 100){
+                    $('#userAndModal').modal('hide');
+                    to_page(totalRecord);
+                    show_validate_msg("#info","success",result.extend.va_msg);
+                }else{
+                    show_validate_msg("#info","error",result.extend.va_msg);
+                }
+            }
+        });
+    })
+    //后端用户姓名校验
+    $("#userName_add_inpput").change(function(){
+        var userName=$("#userName_add_inpput").val();
+        //发送ajax，请求用户名是否可用
+        $.ajax({
+            url:"/checkAddUser",
+            type:"GET",
+            data:"username="+userName,
+            success:function(result){
+                if(result.code == 100){
+                    show_validate_msg("#userName_add_inpput","success",result.extend.va_msg);
+                    // alert(result.extend.va_msg);
+                    $("#save_btn").attr("ajax_userName","success");
+                }else{
+                    show_validate_msg("#userName_add_inpput","error",result.extend.va_msg);
+                    $("#save_btn").attr("ajax_userName","error");
+                }
+            }
+        });
+    })
+    //后端手机号码校验
+    $("#userTel_add_inpput").change(function(){
+        var userTel=$("#userTel_add_inpput").val();
+        var userPwd=$("#userPwd_add_inpput").val();
+        var userName = $("#userName_add_inpput").val();
+        //发送ajax，请求用户名是否可用
+        $.ajax({
+            url:"/checkAddTel",
+            type:"GET",
+            data:"usertel="+userTel,
+            success:function(result){
+                if(result.code == 100){
+                    show_validate_msg("#userTel_add_inpput","success",result.extend.va_msg);
+                    // alert(result.extend.va_msg);
+                    $("#save_btn").attr("ajax_userTel","success");
+                }else{
+                    show_validate_msg("#userTel_add_inpput","error",result.extend.va_msg);
+                    $("#save_btn").attr("ajax_userTel","error");
+                }
+            }
+        });
+        if(userName!="" && userTel!=null && userPwd!=""){
+            $("#info").text("");
+        }
+    })
+    //checkAddAge
+    //前端年龄格式校验
+    $("#userAge_add_inpput").change(function(){
+        var userAge=$("#userAge_add_inpput").val();
+        var regex = new RegExp("(^\\d{1,3}$)");
+        if(regex.test(userAge) == false){
+            show_validate_msg("#userAge_add_inpput","error","请输入数字");
+            $("#save_btn").attr("ajax_userAge","error");
+        }
+        if(regex.test(userAge) == true){
+            show_validate_msg("#userAge_add_inpput","success"," ");
+            $("#save_btn").attr("ajax_userAge","success");
+        }
+    })
+    //后端密码校验checkAddPwd
+    $("#userPwd_add_inpput").change(function(){
+        var userPwd=$("#userPwd_add_inpput").val();
+        var userName = $("#userName_add_inpput").val();
+        var userTel = $("#userTel_add_inpput").val();
+
+        //发送ajax，请求用户名是否可用
+        $.ajax({
+            url:"/checkAddPwd",
+            type:"GET",
+            data:"userpwd="+userPwd,
+            success:function(result){
+                if(result.code == 100){
+                    show_validate_msg("#userPwd_add_inpput","success",result.extend.va_msg);
+                    // alert(result.extend.va_msg);
+                    $("#save_btn").attr("ajax_userPwd","success");
+                }else{
+                    show_validate_msg("#userPwd_add_inpput","error",result.extend.va_msg);
+                    $("#save_btn").attr("ajax_userPwd","error");
+                }
+            }
+        });
+        if(userName!="" && userTel!=null && userPwd!=""){
+            $("#info").text("");
+        }
+    })
+    //清空表单样式以及内容
+    function rest_form(ele){
+        $(ele)[0].reset();
+        $(ele).find("*").removeClass("has-success has-error");
+        $(ele).find(".help-block").text("");
+    }
+
+    //点击投诉按钮，弹出模态框
+    $("#addBlack").click(function() {
+        rest_form("#adminBlacklist form");
+        //弹出模块矿，静态、esc关闭
+        $('#adminBlacklist').modal({
+            keyboard:true,
+            backdrop:"static"
+        })
+    });
+    //新增黑名单信息
+    $(document).on("click", "#black_btn", function(){
+        var userID = $("#userID").val();
+        var resiontext = $("#resiontext").val();
+
+        if(userID == "" || resiontext == "") {
+            $("#info").text("请输入用户ID和原因！");
+            return false;
+        }
+        $.ajax({
+            url: "/insertBC/",
+            type: "POST",
+            data: {
+                userID: userID,
+                resiontext: resiontext
+            },
+            success: function(result) {
+                // 处理成功的情况
+            },
+            error: function() {
+                // 处理失败的情况
+            },
+            complete: function() {
+                $('#adminBlacklist').modal('hide');
+                // 在此处可以进行其他操作，如更新页面等
+               window.location.href = "/toBlacklist";
+            }
+        })
+    });
+
+
 </script>
 </body>
 </html>

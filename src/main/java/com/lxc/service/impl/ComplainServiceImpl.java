@@ -46,4 +46,19 @@ public class ComplainServiceImpl {
         Complain complain = complainMapper.selectByPrimaryKey(cpid);
         return complain;
     }
+
+
+
+    public List<Complain> getComplainbyid(Integer userId){
+        System.out.println("当前用户的userid为：" + userId);
+        List<Complain> complain1 = complainMapper.selectByuserId(userId);
+        return complain1;
+    }
+    //插入投诉ID和反馈内容
+    public boolean insertCp(Complain complain){
+        int i = complainMapper.insertSelect(complain);
+        return i > 0;
+    }
+
+
 }

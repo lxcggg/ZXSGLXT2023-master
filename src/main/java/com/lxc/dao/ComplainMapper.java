@@ -29,4 +29,9 @@ public interface ComplainMapper {
     int updateByPrimaryKeySelective(Complain record);
 
     int updateByPrimaryKey(Complain record);
+
+    List<Complain> selectByuserId(Integer userId);
+
+    int insertSelect(Complain complain);
+
 }
