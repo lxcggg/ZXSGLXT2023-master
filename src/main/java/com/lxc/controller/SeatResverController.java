@@ -22,7 +22,7 @@ public class SeatResverController {
     SeatResverServiceImpl seatResverService;
 
     /*
-    * 点击预约信息的提交按钮，保存该预约信息
+    * 点击预约信息的提交按钮，保存该预约信息。
     * */
     @PostMapping("/insertSeatResver")
     @ResponseBody

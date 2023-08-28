@@ -20,7 +20,7 @@ public class StatisticController {
     @Autowired
     StatisticServiceImpl statisticService;
     /*
-     * 到图表分析页面
+     * 到图表分析页面。
      * */
     @GetMapping("/charts")
     public String toChartsPage(){

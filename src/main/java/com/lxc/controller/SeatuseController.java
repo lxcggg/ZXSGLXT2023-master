@@ -47,7 +47,7 @@ public class SeatuseController {
         return "SeatUse2";
     }
     /*
-     * 用户到座位使用统计页面
+     * 用户到座位使用统计页面。
      * */
     /*@RequestMapping("/seatUseID")
     public String toSeatUserPage2(Map<String,Object> map, HttpServletRequest request){

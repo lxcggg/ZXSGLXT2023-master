@@ -25,7 +25,7 @@ public class FeedBackController {
     @Autowired
     FeedBackServiceImpl feedBackService;
 
-    //到投诉反馈页面并且获取数据库中feedback数据
+    //到投诉反馈页面并且获取数据库中feedback数据。
     @GetMapping("/toFeedback")
     public String toFeedbackPage(Map<String ,Object> map){
         List<FeedBack> feedBacks = feedBackService.getAll();

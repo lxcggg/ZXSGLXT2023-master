@@ -12,7 +12,6 @@ public class ManagerServiceImpl implements ManageService {
     @Autowired
     ManagerMapper managerMapper;
 
-
     /*检查用户名是否在数据库中存在
      * @param empName
      * @return 0=>true 可用

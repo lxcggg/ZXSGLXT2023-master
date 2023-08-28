@@ -18,7 +18,7 @@ public class BlacklistController {
     @Autowired
     BlacklistServiceImpl blacklistService;
 
-    //跳转到黑名单管理页面，并且返回黑名单数据
+    //跳转到黑名单管理页面，并且返回黑名单数据。
     @GetMapping("/toBlacklist")
     public String toBlacklistPage(Map<String ,Object> map){
         List<Blacklist> blacklists = blacklistService.getAll();

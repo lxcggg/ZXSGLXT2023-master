@@ -10,6 +10,7 @@ import org.springframework.stereotype.Component;
 public interface BlacklistMapper {
     long countByExample(BlacklistExample example);
 
+
     int deleteByExample(BlacklistExample example);
 
     int deleteByPrimaryKey(Integer blackid);

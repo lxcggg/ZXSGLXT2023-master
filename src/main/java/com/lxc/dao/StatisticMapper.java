@@ -8,6 +8,7 @@ import org.springframework.stereotype.Component;
 
 @Component
 public interface StatisticMapper {
+
     long countByExample(StatisticExample example);
 
     int deleteByExample(StatisticExample example);

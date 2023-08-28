@@ -20,7 +20,7 @@ public class SeatController {
     @Autowired
     SeatServiceImpl seatService;
     /*
-    * 获取数据库座位信息，返回map中
+    * 获取数据库座位信息，返回map中。
     * */
     @GetMapping("/seat")
     public String seat(Map<String,Object> map){

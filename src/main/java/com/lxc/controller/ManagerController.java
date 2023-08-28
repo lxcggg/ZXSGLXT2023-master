@@ -26,7 +26,7 @@ public class ManagerController {
     @Autowired
     ManagerServiceImpl managerService;
 
-    //进入忘记密码页面
+    //进入忘记密码页面。
     @RequestMapping("/forgotPwd")
     public String toForgotPage(){
         return "ForgotPassword";

@@ -18,7 +18,6 @@ import java.util.List;
 
 @Service
 public class ComplainServiceImpl {
-
     @Autowired
     ComplainMapper complainMapper;
     //查询投诉的数据

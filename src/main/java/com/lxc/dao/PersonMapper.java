@@ -8,6 +8,7 @@ import org.springframework.stereotype.Component;
 
 @Component
 public interface PersonMapper {
+
     long countByExample(PersonExample example);
 
     int deleteByExample(PersonExample example);

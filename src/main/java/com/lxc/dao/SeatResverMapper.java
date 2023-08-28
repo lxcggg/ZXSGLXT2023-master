@@ -8,6 +8,7 @@ import org.springframework.stereotype.Component;
 
 @Component
 public interface SeatResverMapper {
+
     long countByExample(SeatResverExample example);
 
     int deleteByExample(SeatResverExample example);

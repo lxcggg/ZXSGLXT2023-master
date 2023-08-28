@@ -11,7 +11,6 @@ import org.springframework.stereotype.Component;
 
 @Component
 public interface UserMapper {
-
     @Select("select * from user where username=#{username} and userpwd=#{userpwd}")
     User userLogin(@Param("username") String username, @Param("userpwd") String userpwd);
 

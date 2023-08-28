@@ -8,6 +8,7 @@ import org.springframework.stereotype.Component;
 
 @Component
 public interface RoomMapper {
+
     long countByExample(RoomExample example);
 
     int deleteByExample(RoomExample example);

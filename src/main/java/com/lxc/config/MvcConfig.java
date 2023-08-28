@@ -13,7 +13,7 @@ import org.springframework.web.servlet.config.annotation.WebMvcConfigurer;
 public class MvcConfig implements WebMvcConfigurer {
     @Override
     public void addViewControllers(ViewControllerRegistry registry) {
-        // super.addViewControllers(registry);
+        // super.addViewControllers(registry);。
         //浏览器发送 /atguigu 请求来到 success
 //        registry.addViewController("/atguigu").setViewName("success");
     }

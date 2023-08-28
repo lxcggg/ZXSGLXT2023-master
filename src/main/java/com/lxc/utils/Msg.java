@@ -11,7 +11,7 @@ public class Msg {
 	//提示信息
 	private String msg;
 	
-	//用户返回给用户的数据
+	//用户返回给用户的数据.
 	private Map<String, Object> extend=new HashMap<String, Object>();
 	
 	public static Msg success() {

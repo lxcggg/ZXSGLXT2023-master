@@ -23,7 +23,7 @@ public class ComplainController {
     @Autowired
     ComplainServiceImpl complainService;
 
-    //来到投诉页面
+    //来到投诉页面。
     @RequestMapping("/toComplain")
     public String toComplainPage(Map<String,Object> map){
         List<Complain> complains = complainService.getAll();

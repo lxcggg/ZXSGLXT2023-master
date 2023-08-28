@@ -40,7 +40,7 @@ public class UserController {
     }
 
     /*
-    * 前端发送请求后端分页数据，
+    * 前端发送请求后端分页数据，。
     * */
     @GetMapping("/userTables")
     @ResponseBody

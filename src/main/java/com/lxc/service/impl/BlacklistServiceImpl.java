@@ -10,7 +10,6 @@ import java.util.List;
 
 @Service
 public class BlacklistServiceImpl {
-
     @Autowired
     BlacklistMapper blacklistMapper;
     //获取数据库的信息，黑名单

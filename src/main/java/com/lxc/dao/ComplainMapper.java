@@ -8,6 +8,7 @@ import com.lxc.entity.FeedBack;
 import org.apache.ibatis.annotations.Param;
 import org.springframework.stereotype.Component;
 
+
 @Component
 public interface ComplainMapper {
     long countByExample(ComplainExample example);

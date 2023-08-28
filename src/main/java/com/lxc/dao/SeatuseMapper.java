@@ -9,6 +9,7 @@ import org.springframework.stereotype.Component;
 
 @Component
 public interface SeatuseMapper {
+
     @Select("select * from seat_use where userid=#{userid}")
     public List<Seatuse> selectSeatuseById(Integer userid);
 

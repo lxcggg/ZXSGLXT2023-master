@@ -13,7 +13,6 @@ import java.util.List;
 public class SeatResverServiceImpl {
     @Autowired
     SeatResverMapper resverMapper;
-
     /*
     * 将预约信息插入到表中
     * 1为已预约

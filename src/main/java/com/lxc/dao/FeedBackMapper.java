@@ -13,7 +13,6 @@ import org.springframework.stereotype.Component;
 public interface FeedBackMapper {
 
 
-
     long countByExample(FeedBackExample example);
 
     int deleteByExample(FeedBackExample example);

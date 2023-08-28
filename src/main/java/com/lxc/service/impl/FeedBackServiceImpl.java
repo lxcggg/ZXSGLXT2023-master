@@ -11,7 +11,6 @@ import java.util.List;
 public class FeedBackServiceImpl {
     @Autowired
     FeedBackMapper feedBackMapper;
-
     //插入数据，反馈结果
     //插入投诉ID和反馈内容
     public boolean insertCpText(FeedBack feedBack){

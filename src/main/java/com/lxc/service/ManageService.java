@@ -11,5 +11,4 @@ public interface ManageService {
 
     public Manager manageLogin(String managername, String managerpwd);
 
-
 }
