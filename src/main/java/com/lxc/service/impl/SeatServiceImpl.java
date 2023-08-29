@@ -3,6 +3,7 @@ package com.lxc.service.impl;
 import com.lxc.dao.SeatMapper;
 import com.lxc.entity.Seat;
 import com.lxc.entity.SeatExample;
+import com.lxc.entity.SeatWithUserIdDTO;
 import org.springframework.beans.factory.annotation.Autowired;
 import org.springframework.stereotype.Service;
 
@@ -20,6 +21,12 @@ public class SeatServiceImpl {
         List<Seat> seats = seatMapper.selectByExample(null);
         return seats;
     }
+
+    public List<SeatWithUserIdDTO> getAllSeat(){
+        List<SeatWithUserIdDTO> seatWithUserIdDTOS = seatMapper.selectUserIdSeatIDAndRoomId(null);
+        return seatWithUserIdDTOS;
+    }
+
 
     /*
     * 修改预约状态为0 ，取消预约

@@ -54,7 +54,7 @@ public class FeedBackController {
         User user = (User) session.getAttribute("user"); // 假设用户对象存在于名为"user"的session属性中
         if (user == null) {
             // 当前用户未登录或session中没有"user"属性
-            System.out.println("ession中没有\"user\"属性" ); // 重定向到登录页面或其他处理方式
+            System.out.println("session中没有\"user\"属性" ); // 重定向到登录页面或其他处理方式
         }
 
         Integer userId = user.getUserid();

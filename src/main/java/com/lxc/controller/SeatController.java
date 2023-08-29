@@ -1,6 +1,7 @@
 package com.lxc.controller;
 
 import com.lxc.entity.Seat;
+import com.lxc.entity.SeatWithUserIdDTO;
 import com.lxc.service.impl.SeatServiceImpl;
 import com.lxc.utils.Msg;
 import org.springframework.beans.factory.annotation.Autowired;
@@ -24,14 +25,14 @@ public class SeatController {
     * */
     @GetMapping("/seat")
     public String seat(Map<String,Object> map){
-        List<Seat> seats = seatService.getAll();
+        List<SeatWithUserIdDTO> seats = seatService.getAllSeat();
         map.put("seats",seats);
         return "SeatResver";
     }
     @GetMapping("/seatuser")
     public String seatForUser(Map<String,Object> map){
-        List<Seat> seats = seatService.getAll();
-        map.put("seats",seats);
+        List<SeatWithUserIdDTO> seat = seatService.getAllSeat();
+        map.put("seats",seat);
         return "SeatResverForUser";
     }
 

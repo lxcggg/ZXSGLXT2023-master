@@ -48,7 +48,8 @@
                                             <a class="text-warning"  th:text="${'已预约'}"></a>
                                         </div>
                                         <div class="card-footer bg-success deleteSeatResver" >
-                                            <button type="text" class="bg-success text-warning" th:attr="seat_id=${seat.seatid}" style="border: none">取消预约</button>
+                                            <button type="text" class="bg-success text-warning" th:attr="seat_id=${seat.seatid}" th:if="${seat.userid == session.user.userid}" style="border: none">取消预约</button>
+                                            <div th:unless="${seat.userid == session.user.userid}" style="width: 28px; height: 19px;"></div>
                                         </div>
                                     </div>
                                     <div class="card text-white  mb-2" th:classappend="${'bg-secondary'}" th:if="${seat.seatstate=='0'}" style="max-width: 15rem;">
@@ -69,7 +70,8 @@
                                                style="border: none" th:attr="seat_id=${seat.seatid}"  th:text="${'该座有人'}" ></a>
                                         </div>
                                         <div class="card-footer bg-danger text-center deleteSeatResver" >
-                                            <button type="text" class="bg-danger text-white" th:attr="seat_id=${seat.seatid}" style="border: none">退座</button>
+                                            <button type="text" class="bg-danger text-white" th:attr="seat_id=${seat.seatid}" th:if="${seat.userid == session.user.userid}" style="border: none">退座</button>
+                                            <div th:unless="${seat.userid == session.user.userid}" style="width: 28px; height: 19px;"></div>
                                         </div>
                                     </div>
                                 </div>
@@ -89,7 +91,8 @@
                                             <a class="text-warning"  th:text="${'已预约'}"></a>
                                         </div>
                                         <div class="card-footer bg-success deleteSeatResver" >
-                                            <button type="text" class="bg-success text-warning" th:attr="seat_id=${seat.seatid}" style="border: none">取消预约</button>
+                                            <button type="text" class="bg-success text-warning" th:attr="seat_id=${seat.seatid}" th:if="${seat.userid == session.user.userid}" style="border: none">取消预约</button>
+                                            <div th:unless="${seat.userid == session.user.userid}" style="width: 28px; height: 19px;"></div>
                                         </div>
                                     </div>
                                     <div class="card text-white  mb-2" th:classappend="${'bg-secondary'}" th:if="${seat.seatstate=='0'}" style="max-width: 15rem;">
@@ -110,7 +113,8 @@
                                                style="border: none" th:attr="seat_id=${seat.seatid}"  th:text="${'该座有人'}" ></a>
                                         </div>
                                         <div class="card-footer bg-danger text-center deleteSeatResver" >
-                                            <button type="text" class="bg-danger text-white" th:attr="seat_id=${seat.seatid}" style="border: none">退座</button>
+                                            <button type="text" class="bg-danger text-white" th:attr="seat_id=${seat.seatid}" th:if="${seat.userid == session.user.userid}" style="border: none">退座</button>
+                                            <div th:unless="${seat.userid == session.user.userid}" style="width: 28px; height: 19px;"></div>
                                         </div>
                                     </div>
                                 </div>
@@ -130,7 +134,8 @@
                                             <a class="text-warning"  th:text="${'已预约'}"></a>
                                         </div>
                                         <div class="card-footer bg-success deleteSeatResver" >
-                                            <button type="text" class="bg-success text-warning" th:attr="seat_id=${seat.seatid}" style="border: none">取消预约</button>
+                                            <button type="text" class="bg-success text-warning" th:attr="seat_id=${seat.seatid}" th:if="${seat.userid == session.user.userid}" style="border: none">取消预约</button>
+                                            <div th:unless="${seat.userid == session.user.userid}" style="width: 28px; height: 19px;"></div>
                                         </div>
                                     </div>
                                     <div class="card text-white  mb-2" th:classappend="${'bg-secondary'}" th:if="${seat.seatstate=='0'}" style="max-width: 15rem;">
@@ -151,7 +156,8 @@
                                                style="border: none" th:attr="seat_id=${seat.seatid}"  th:text="${'该座有人'}" ></a>
                                         </div>
                                         <div class="card-footer bg-danger text-center deleteSeatResver" >
-                                            <button type="text" class="bg-danger text-white" th:attr="seat_id=${seat.seatid}" style="border: none">退座</button>
+                                            <button type="text" class="bg-danger text-white" th:attr="seat_id=${seat.seatid}" th:if="${seat.userid == session.user.userid}" style="border: none">退座</button>
+                                            <div th:unless="${seat.userid == session.user.userid}" style="width: 28px; height: 19px;"></div>
                                         </div>
                                     </div>
                                 </div>
@@ -171,7 +177,8 @@
                                             <a class="text-warning"  th:text="${'已预约'}"></a>
                                         </div>
                                         <div class="card-footer bg-success deleteSeatResver" >
-                                            <button type="text" class="bg-success text-warning" th:attr="seat_id=${seat.seatid}" style="border: none">取消预约</button>
+                                            <button type="text" class="bg-success text-warning" th:attr="seat_id=${seat.seatid}" th:if="${seat.userid == session.user.userid}" style="border: none">取消预约</button>
+                                            <div th:unless="${seat.userid == session.user.userid}" style="width: 28px; height: 19px;"></div>
                                         </div>
                                     </div>
                                     <div class="card text-white  mb-2" th:classappend="${'bg-secondary'}" th:if="${seat.seatstate=='0'}" style="max-width: 15rem;">
@@ -192,7 +199,8 @@
                                                style="border: none" th:attr="seat_id=${seat.seatid}"  th:text="${'该座有人'}" ></a>
                                         </div>
                                         <div class="card-footer bg-danger text-center deleteSeatResver" >
-                                            <button type="text" class="bg-danger text-white" th:attr="seat_id=${seat.seatid}" style="border: none">退座</button>
+                                            <button type="text" class="bg-danger text-white" th:attr="seat_id=${seat.seatid}" th:if="${seat.userid == session.user.userid}" style="border: none">退座</button>
+                                            <div th:unless="${seat.userid == session.user.userid}" style="width: 28px; height: 19px;"></div>
                                         </div>
                                     </div>
                                 </div>
@@ -212,7 +220,8 @@
                                             <a class="text-warning"  th:text="${'已预约'}"></a>
                                         </div>
                                         <div class="card-footer bg-success deleteSeatResver" >
-                                            <button type="text" class="bg-success text-warning" th:attr="seat_id=${seat.seatid}" style="border: none">取消预约</button>
+                                            <button type="text" class="bg-success text-warning" th:attr="seat_id=${seat.seatid}" th:if="${seat.userid == session.user.userid}" style="border: none">取消预约</button>
+                                            <div th:unless="${seat.userid == session.user.userid}" style="width: 28px; height: 19px;"></div>
                                         </div>
                                     </div>
                                     <div class="card text-white  mb-2" th:classappend="${'bg-secondary'}" th:if="${seat.seatstate=='0'}" style="max-width: 15rem;">
@@ -233,7 +242,8 @@
                                                style="border: none" th:attr="seat_id=${seat.seatid}"  th:text="${'该座有人'}" ></a>
                                         </div>
                                         <div class="card-footer bg-danger text-center deleteSeatResver" >
-                                            <button type="text" class="bg-danger text-white" th:attr="seat_id=${seat.seatid}" style="border: none">退座</button>
+                                            <button type="text" class="bg-danger text-white" th:attr="seat_id=${seat.seatid}" th:if="${seat.userid == session.user.userid}" style="border: none">退座</button>
+                                            <div th:unless="${seat.userid == session.user.userid}" style="width: 28px; height: 19px;"></div>
                                         </div>
                                     </div>
                                 </div>
@@ -253,7 +263,8 @@
                                             <a class="text-warning"  th:text="${'已预约'}"></a>
                                         </div>
                                         <div class="card-footer bg-success deleteSeatResver" >
-                                            <button type="text" class="bg-success text-warning" th:attr="seat_id=${seat.seatid}" style="border: none">取消预约</button>
+                                            <button type="text" class="bg-success text-warning" th:attr="seat_id=${seat.seatid}" th:if="${seat.userid == session.user.userid}" style="border: none">取消预约</button>
+                                            <div th:unless="${seat.userid == session.user.userid}" style="width: 28px; height: 19px;"></div>
                                         </div>
                                     </div>
                                     <div class="card text-white  mb-2" th:classappend="${'bg-secondary'}" th:if="${seat.seatstate=='0'}" style="max-width: 15rem;">
@@ -274,7 +285,8 @@
                                                style="border: none" th:attr="seat_id=${seat.seatid}"  th:text="${'该座有人'}" ></a>
                                         </div>
                                         <div class="card-footer bg-danger text-center deleteSeatResver" >
-                                            <button type="text" class="bg-danger text-white" th:attr="seat_id=${seat.seatid}" style="border: none">退座</button>
+                                            <button type="text" class="bg-danger text-white" th:attr="seat_id=${seat.seatid}" th:if="${seat.userid == session.user.userid}" style="border: none">退座</button>
+                                            <div th:unless="${seat.userid == session.user.userid}" style="width: 28px; height: 19px;"></div>
                                         </div>
                                     </div>
                                 </div>
@@ -351,13 +363,13 @@
                             <div class="form-group">
                                 <span class="help-block text-danger" id="info"></span>
                             </div>
-                            <!--<div class="form-group">
+                            <div class="form-group">
                                 <label class="col-sm-4 control-label">用户ID</label>
                                 <div class="col-sm-12">
-                                    <input type="text" class="form-control" maxlength="4" id="userID_inpput" placeholder="请输入你的用户ID（四位）">
+                                    <input type="text" class="form-control" maxlength="4" id="userID_inpput" th:value="${session.user.userid}" placeholder="请输入你的用户ID（四位）"readonly>
                                     <span class="help-block text-info" ></span>
                                 </div>
-                            </div>-->
+                            </div>
                             <div class="form-group">
                                 <label class="col-sm-4 control-label">座位号</label>
                                 <div class="col-sm-12">
@@ -662,6 +674,30 @@
             }
         });
     })
+
+   /* /!*
+    * 发送请求，防止修改他人状态 checkSeatResverUserID
+    * *!/
+    $(document).on("click","#tuizuo",function(){
+        var seat_ID2 = $(this).attr("seat_id");
+        var userID = $('#userID_inpput').val();
+        var status = $(this).attr('status');
+        $.ajax({
+            url: "/checkSeatResverUserIDByUserId/"+seat_ID2,
+            type: "GET",
+            data: { seat_id: seat_ID2 }, // 传递 seat_id 参数
+            success: function (result) {
+                if (result.code == 100) {
+                    return false;
+                } else {
+                    $("#info").text(result.extend.va_msg);
+                    return true;
+                }
+            }
+        });
+    })*/
+
+
     //发送请求，将状态置为1，已预约状态并插入数据
     function updateSeatStateYY1(seat_ID2,status) {
         var status1 =status;

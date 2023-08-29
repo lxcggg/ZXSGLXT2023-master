@@ -5,12 +5,16 @@ import com.lxc.entity.SeatuseExample;
 import java.util.List;
 import org.apache.ibatis.annotations.Param;
 import org.apache.ibatis.annotations.Select;
+import org.springframework.data.relational.core.sql.In;
 import org.springframework.stereotype.Component;
 
 @Component
 public interface SeatuseMapper {
     @Select("select * from seat_use where userid=#{userid}")
     public List<Seatuse> selectSeatuseById(Integer userid);
+
+    @Select("select userid from seat_resver where seatid=#{seatid}")
+    public Integer selectUserIdBySeatId(Integer seatid);
 
     long countByExample(SeatuseExample example);
 

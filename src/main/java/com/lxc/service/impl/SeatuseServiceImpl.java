@@ -19,6 +19,11 @@ public class SeatuseServiceImpl implements SeatuseService {
         return seatuseMapper.selectSeatuseById(userid);
     }
 
+    @Override
+    public Integer selectUserIdBySeatId(Integer seatid) {
+        return seatuseMapper.selectUserIdBySeatId(seatid);
+    }
+
     /*
      * 通过用户ID进行查询
      * */

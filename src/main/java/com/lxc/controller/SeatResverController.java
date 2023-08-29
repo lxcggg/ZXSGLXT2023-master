@@ -3,12 +3,17 @@ package com.lxc.controller;
 import com.github.pagehelper.PageHelper;
 import com.github.pagehelper.PageInfo;
 import com.lxc.entity.SeatResver;
+import com.lxc.entity.Seatuse;
+import com.lxc.entity.User;
 import com.lxc.service.impl.SeatResverServiceImpl;
+import com.lxc.service.impl.SeatuseServiceImpl;
 import com.lxc.utils.Msg;
 import org.springframework.beans.factory.annotation.Autowired;
 import org.springframework.stereotype.Controller;
 import org.springframework.web.bind.annotation.*;
 
+import javax.servlet.http.HttpServletRequest;
+import javax.servlet.http.HttpSession;
 import java.util.List;
 /*
 *
@@ -21,6 +26,9 @@ public class SeatResverController {
     @Autowired
     SeatResverServiceImpl seatResverService;
 
+    @Autowired
+    SeatuseServiceImpl seatuseService;
+
     /*
     * 点击预约信息的提交按钮，保存该预约信息
     * */
@@ -31,6 +39,7 @@ public class SeatResverController {
         seatResverService.insertSeatResver(seatResver,status);
         return Msg.success().add("va_msg","预约座位信息插入成功！");
     }
+
     /*
     * 点击预约信息的提交按钮，校验该用户是否已经预约
     * */
@@ -44,6 +53,27 @@ public class SeatResverController {
             return Msg.success().add("va_msg","");
         }
     }
+  /*  *//*
+    * 点击预约信息的提交按钮，校验该用户是否已经预约
+    * *//*
+    @GetMapping("/checkSeatResverUserIDByUserId/{userid}")
+    @ResponseBody
+    public Msg checkSeatResverUserIDForUserId(@PathVariable("userid") Integer userid,HttpServletRequest request){
+        HttpSession session = request.getSession();
+        User user = (User) session.getAttribute("user");
+        Integer seatID = Integer.parseInt(request.getParameter("seat_id"));
+        Integer userIdBySeatId = seatuseService.selectUserIdBySeatId(seatID);
+        System.out.println("seat_id========================================="+seatID);
+        System.out.println("userIdBySeatId=================================="+userIdBySeatId);
+        System.out.println("user.getUserid()================================"+user.getUserid());
+        System.out.println(userIdBySeatId.equals(user.getUserid()));
+        if (userIdBySeatId.equals(user.getUserid())){
+            return Msg.success().add("va_msg","");
+        }else {
+            return Msg.fail().add("va_msg","这是别人的座位！");
+        }
+    }*/
+
     /*
     * 点击取消按钮，删除预约信息（根据座位号）
     * */
