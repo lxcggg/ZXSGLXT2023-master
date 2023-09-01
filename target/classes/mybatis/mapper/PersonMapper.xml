@@ -75,7 +75,7 @@
     </if>
     'true' as QUERYID,
     <include refid="Base_Column_List" />
-    from person
+    from Person
     <if test="_parameter != null">
       <include refid="Example_Where_Clause" />
     </if>
@@ -86,27 +86,27 @@
   <select id="selectByPrimaryKey" parameterType="java.lang.Integer" resultMap="BaseResultMap">
     select 
     <include refid="Base_Column_List" />
-    from person
+    from Person
     where id = #{id,jdbcType=INTEGER}
   </select>
   <delete id="deleteByPrimaryKey" parameterType="java.lang.Integer">
-    delete from person
+    delete from Person
     where id = #{id,jdbcType=INTEGER}
   </delete>
   <delete id="deleteByExample" parameterType="com.lxc.entity.PersonExample">
-    delete from person
+    delete from Person
     <if test="_parameter != null">
       <include refid="Example_Where_Clause" />
     </if>
   </delete>
   <insert id="insert" parameterType="com.lxc.entity.Person">
-    insert into person (id, name, age, 
+    insert into Person (id, name, age,
       address)
     values (#{id,jdbcType=INTEGER}, #{name,jdbcType=VARCHAR}, #{age,jdbcType=INTEGER}, 
       #{address,jdbcType=VARCHAR})
   </insert>
   <insert id="insertSelective" parameterType="com.lxc.entity.Person">
-    insert into person
+    insert into Person
     <trim prefix="(" suffix=")" suffixOverrides=",">
       <if test="id != null">
         id,
@@ -137,13 +137,13 @@
     </trim>
   </insert>
   <select id="countByExample" parameterType="com.lxc.entity.PersonExample" resultType="java.lang.Long">
-    select count(*) from person
+    select count(*) from Person
     <if test="_parameter != null">
       <include refid="Example_Where_Clause" />
     </if>
   </select>
   <update id="updateByExampleSelective" parameterType="map">
-    update person
+    update Person
     <set>
       <if test="record.id != null">
         id = #{record.id,jdbcType=INTEGER},
@@ -163,7 +163,7 @@
     </if>
   </update>
   <update id="updateByExample" parameterType="map">
-    update person
+    update Person
     set id = #{record.id,jdbcType=INTEGER},
       name = #{record.name,jdbcType=VARCHAR},
       age = #{record.age,jdbcType=INTEGER},
@@ -173,7 +173,7 @@
     </if>
   </update>
   <update id="updateByPrimaryKeySelective" parameterType="com.lxc.entity.Person">
-    update person
+    update Person
     <set>
       <if test="name != null">
         name = #{name,jdbcType=VARCHAR},
@@ -188,7 +188,7 @@
     where id = #{id,jdbcType=INTEGER}
   </update>
   <update id="updateByPrimaryKey" parameterType="com.lxc.entity.Person">
-    update person
+    update Person
     set name = #{name,jdbcType=VARCHAR},
       age = #{age,jdbcType=INTEGER},
       address = #{address,jdbcType=VARCHAR}

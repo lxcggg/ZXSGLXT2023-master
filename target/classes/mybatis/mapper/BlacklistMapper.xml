@@ -212,7 +212,7 @@
 
 
   <insert id="insertBlack" parameterType="com.lxc.entity.Blacklist">
-    insert into blacklist
+    insert into Blacklist
     <trim prefix="(" suffix=")" suffixOverrides=",">
 
       <if test="userid != null">
