@@ -379,4 +379,23 @@ public class UserController {
 
         return "redirect:/user23";
     }
+
+
+
+    @RequestMapping("/toUserCount")
+    public String toUserCount(Map<String,Object> map){
+        List<User> users = userService.getAll();
+        map.put("users",users);
+        return "UserCount";
+    }
+
+    @RequestMapping("/index")
+    public String LoginPage(HttpSession session){
+        Enumeration<String> attributeNames = session.getAttributeNames();
+        while (attributeNames.hasMoreElements()) {
+            session.removeAttribute(attributeNames.nextElement());
+        }
+        return "Login";
+    }
+
 }
