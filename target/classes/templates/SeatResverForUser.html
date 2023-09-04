@@ -45,7 +45,7 @@
                                     <div class="card text-white mb-2" th:classappend="${'bg-success'}" th:if="${seat.seatstate=='1'}" style="max-width: 15rem;">
                                         <div class="card-header text-center"><span th:text="${seat.seatid}"></span></div>
                                         <div class="card-header text-center">
-                                            <a class="text-warning"  th:text="${'已预约'}"></a>
+                                            <a class="text-warning"  th:text="${'已被预约'}"></a>
                                         </div>
                                         <div class="card-footer bg-success deleteSeatResver" >
                                             <button type="text" class="bg-success text-warning" th:attr="seat_id=${seat.seatid}" th:if="${seat.userid == session.user.userid}" style="border: none">取消预约</button>
@@ -88,7 +88,7 @@
                                     <div class="card text-white mb-2" th:classappend="${'bg-success'}" th:if="${seat.seatstate=='1'}" style="max-width: 15rem;">
                                         <div class="card-header text-center"><span th:text="${seat.seatid}"></span></div>
                                         <div class="card-header text-center">
-                                            <a class="text-warning"  th:text="${'已预约'}"></a>
+                                            <a class="text-warning"  th:text="${'已被预约'}"></a>
                                         </div>
                                         <div class="card-footer bg-success deleteSeatResver" >
                                             <button type="text" class="bg-success text-warning" th:attr="seat_id=${seat.seatid}" th:if="${seat.userid == session.user.userid}" style="border: none">取消预约</button>
@@ -131,7 +131,7 @@
                                     <div class="card text-white mb-2" th:classappend="${'bg-success'}" th:if="${seat.seatstate=='1'}" style="max-width: 15rem;">
                                         <div class="card-header text-center"><span th:text="${seat.seatid}"></span></div>
                                         <div class="card-header text-center">
-                                            <a class="text-warning"  th:text="${'已预约'}"></a>
+                                            <a class="text-warning"  th:text="${'已被预约'}"></a>
                                         </div>
                                         <div class="card-footer bg-success deleteSeatResver" >
                                             <button type="text" class="bg-success text-warning" th:attr="seat_id=${seat.seatid}" th:if="${seat.userid == session.user.userid}" style="border: none">取消预约</button>
@@ -174,7 +174,7 @@
                                     <div class="card text-white mb-2" th:classappend="${'bg-success'}" th:if="${seat.seatstate=='1'}" style="max-width: 15rem;">
                                         <div class="card-header text-center"><span th:text="${seat.seatid}"></span></div>
                                         <div class="card-header text-center">
-                                            <a class="text-warning"  th:text="${'已预约'}"></a>
+                                            <a class="text-warning"  th:text="${'已被预约'}"></a>
                                         </div>
                                         <div class="card-footer bg-success deleteSeatResver" >
                                             <button type="text" class="bg-success text-warning" th:attr="seat_id=${seat.seatid}" th:if="${seat.userid == session.user.userid}" style="border: none">取消预约</button>
@@ -217,7 +217,7 @@
                                     <div class="card text-white mb-2" th:classappend="${'bg-success'}" th:if="${seat.seatstate=='1'}" style="max-width: 15rem;">
                                         <div class="card-header text-center"><span th:text="${seat.seatid}"></span></div>
                                         <div class="card-header text-center">
-                                            <a class="text-warning"  th:text="${'已预约'}"></a>
+                                            <a class="text-warning"  th:text="${'已被预约'}"></a>
                                         </div>
                                         <div class="card-footer bg-success deleteSeatResver" >
                                             <button type="text" class="bg-success text-warning" th:attr="seat_id=${seat.seatid}" th:if="${seat.userid == session.user.userid}" style="border: none">取消预约</button>
@@ -260,7 +260,7 @@
                                     <div class="card text-white mb-2" th:classappend="${'bg-success'}" th:if="${seat.seatstate=='1'}" style="max-width: 15rem;">
                                         <div class="card-header text-center"><span th:text="${seat.seatid}"></span></div>
                                         <div class="card-header text-center">
-                                            <a class="text-warning"  th:text="${'已预约'}"></a>
+                                            <a class="text-warning"  th:text="${'已被预约'}"></a>
                                         </div>
                                         <div class="card-footer bg-success deleteSeatResver" >
                                             <button type="text" class="bg-success text-warning" th:attr="seat_id=${seat.seatid}" th:if="${seat.userid == session.user.userid}" style="border: none">取消预约</button>
@@ -491,7 +491,7 @@
             var btimeTd=$("<td></td>").append(btime);
             var etime = new Date(item.etime).format("yyyy-MM-dd hh:mm:ss");
             var etimeTd=$("<td></td>").append(etime);
-            var stateTd=$("<td></td>").append(item.state=='1'?'已预约':'已上座');
+            var stateTd=$("<td></td>").append(item.state=='1'?'已被预约':'已上座');
             var userBtn=$("<button></button>").addClass("btn btn-primary btn-sm user_btn")
                 .append($("<span></span>").append("用户信息"));
             var btnTd=$("<td></td>").append(userBtn);
@@ -617,19 +617,34 @@
         // 检查开始时间和结束时间的合理性
         var isValidTimeRange = validateTimeRange(beginTime, endTime);
         if (!isValidTimeRange) {
-            $("#info").text("时间范围选择错误！");
+            $("#info").text("请选择开始日期的二天以内的日期！");
             return false;
         }
+        function validateTimeRange(beginTime, endTime) {
+            var beginTimestamp = Date.parse(beginTime);
+            var endTimestamp = Date.parse(endTime);
+            var threeDaysInMilliseconds = 2 * 24 * 60 * 60 * 1000; // 2天的毫秒数
 
+            // 检查时间范围是否至多三天
+            if (endTimestamp - beginTimestamp > threeDaysInMilliseconds) {
+                return false;
+            }
+
+            return !isNaN(beginTimestamp) && !isNaN(endTimestamp) && beginTimestamp <= endTimestamp;
+        }
 
 
         // 当前时间校验
         var now = new Date();
         var currentDateTime = formatDate(now); // 格式化当前时间
         if (endTime < currentDateTime) {
-            $("#info").text("时间范围选择错误！");
+            $("#info").text("请选择当前时间或之后时间！");
             return false;
         }
+
+
+        /***************************************分页信息*****************************************************/
+
 
         // 判断之前的ajax用户ID校验是否成功，如果成功继续，否则终止
         if ($(this).attr("ajax_userID") == "error") {
