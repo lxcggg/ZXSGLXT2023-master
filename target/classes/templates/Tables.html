@@ -184,25 +184,25 @@
                                                 <th>年龄</th>
                                                 <th>性别</th>
                                                 <th>手机号</th>
-                                                <th>密码</th>
+
                                                 <th>操作</th>
                                             </tr>
                                         </thead>
 
                                         <tbody>
-                                            <!--<tr th:each="user:${users}">
+                                            <tr th:each="user:${users}">
                                                 <td th:text="${user.userid}"></td>
                                                 <td th:text="${user.username}"></td>
                                                 <td th:text="${user.userage}"></td>
                                                 <td th:text="${user.usergender}=='F'?'女':'男'"></td>
                                                 <td th:text="${user.usertel}"></td>
-                                                <td th:text="${user.userpwd}"></td>
+
                                                 <td style="text-align: center">
                                                     <input type="hidden" th:value="${user.userid}" id="userid_btn">
                                                     <button type="button" class="btn btn-primary" th:attr="edit_id=${user.userid}" id="update_btn"><i class="fas fa-list-alt" aria-hidden="true"></i> 编辑</button>
                                                     <button th:attr="delete_User=@{/deleteUser/}+ ${user.userid}" class="btn btn-danger deleteBtn"><i class="fas fa-trash" aria-hidden="true"></i>  删除</button>
                                                 </td>
-                                            </tr>-->
+                                            </tr>
 
                                         </tbody>
                                     </table>
@@ -264,7 +264,7 @@
                 var userageTd=$("<td></td>").append(item.userage);
                 var usergenderTd=$("<td></td>").append(item.usergender=='M'?'男':'女');
                 var usertelTd=$("<td></td>").append(item.usertel);
-                var userpwdTd=$("<td></td>").append(item.userpwd);
+
                 var editBtn=$("<button></button>").addClass("btn btn-primary btn-sm edit_btn")
                     .append($("<i></i>").addClass("fas fa-list-alt")).append($("<span></span>").append("编辑"));
                 var delBtn=$("<button></button>").addClass("btn btn-danger btn-sm del_btn")
@@ -278,7 +278,7 @@
                     .append(userageTd)
                     .append(usergenderTd)
                     .append(usertelTd)
-                    .append(userpwdTd)
+
                     .append(btnTd)
                     .appendTo("#UserTable tbody");
             });
